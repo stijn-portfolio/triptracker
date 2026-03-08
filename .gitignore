@@ -1,0 +1,50 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+*.csproj.user
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+
+# MAUI specific
+*.ipa
+*.apk
+*.aab
+*.appxbundle
+*.msix
+
+# Rider
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Sensitive files
+**/OpenAIKeys.cs
+appsettings.Development.json
+
+# User-specific
+*.rsuser
+*.log
+
+# Database
+*.mdf
+*.ldf

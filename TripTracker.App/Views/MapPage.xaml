@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             x:Class="TripTracker.App.Views.MapPage"
+             Title="{Binding Title}">
+
+    <!-- MapPage: Toont stops op een OpenStreetMap kaart -->
+    <!-- Code-behind is VEREIST voor Mapsui MapControl initialisatie (library beperking) -->
+
+    <Grid RowDefinitions="*, Auto">
+
+        <!-- Mapsui MapControl -->
+        <mapsui:MapControl x:Name="mapControl"
+                           Grid.Row="0"/>
+
+        <!-- Terug knop -->
+        <Button Text="Back"
+                Command="{Binding GoBackCommand}"
+                Grid.Row="1"
+                Margin="15"
+                BackgroundColor="#512BD4"/>
+    </Grid>
+
+</ContentPage>

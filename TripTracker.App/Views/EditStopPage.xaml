@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TripTracker.App.Views.EditStopPage"
+             Title="Edit Stop">
+
+    <!-- Edit pagina voor een TripStop -->
+    <!-- Tekstvelden en foto aanpasbaar -->
+
+    <Grid>
+        <ScrollView Padding="15">
+        <VerticalStackLayout Spacing="15">
+
+            <!-- FOTO SECTIE -->
+            <Border Stroke="LightGray"
+                    Padding="0"
+                    HeightRequest="200"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White">
+                <Grid>
+                    <!-- Placeholder als geen foto -->
+                    <VerticalStackLayout IsVisible="{Binding HasPhoto, Converter={StaticResource InvertedBoolConverter}}"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         Spacing="10">
+                        <Label Text="Tap to change photo"
+                               FontSize="16"
+                               TextColor="Gray"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+
+                    <!-- Foto preview -->
+                    <Image Source="{Binding PhotoPreview}"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding HasPhoto}"/>
+
+                    <!-- Tap gesture voor hele border -->
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PickPhotoCommand}"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Border>
+
+            <!-- Photo buttons -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <Button Text="Change Photo"
+                        Command="{Binding PickPhotoCommand}"
+                        BackgroundColor="#512BD4"/>
+                <Button Grid.Column="1"
+                        Command="{Binding AnalyzePhotoCommand}"
+                        BackgroundColor="#E91E63"
+                        IsVisible="{Binding HasPhoto}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsAnalyzing}" Value="True">
+                            <Setter Property="Text" Value="Analyzing..."/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsAnalyzing}" Value="False">
+                            <Setter Property="Text" Value="AI Describe"/>
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+
+            <!-- Title -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Title" FontAttributes="Bold"/>
+                <Entry Text="{Binding Title}"
+                       Placeholder="Enter title"/>
+            </VerticalStackLayout>
+
+            <!-- Description -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Description" FontAttributes="Bold"/>
+                <Border Stroke="LightGray" StrokeThickness="1" Padding="5">
+                    <Editor Text="{Binding Description}"
+                            Placeholder="Enter description"
+                            MinimumHeightRequest="150"
+                            AutoSize="TextChanges"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Address -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Address" FontAttributes="Bold"/>
+                <Entry Text="{Binding Address}"
+                       Placeholder="Enter address"/>
+            </VerticalStackLayout>
+
+            <!-- Country -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Country" FontAttributes="Bold"/>
+                <Entry Text="{Binding Country}"
+                       Placeholder="Enter country"/>
+            </VerticalStackLayout>
+
+            <!-- Date and Time -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Date" FontAttributes="Bold"/>
+                    <DatePicker Date="{Binding VisitDate}"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                    <Label Text="Time" FontAttributes="Bold"/>
+                    <TimePicker Time="{Binding VisitTime}"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Action buttons -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="Gray"
+                        TextColor="White"/>
+                <Button Text="Save"
+                        Command="{Binding SaveCommand}"
+                        Grid.Column="1"
+                        BackgroundColor="#512BD4"
+                        TextColor="White"/>
+            </Grid>
+
+        </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading overlay tijdens AI analyse -->
+        <Grid BackgroundColor="#80000000"
+              IsVisible="{Binding IsAnalyzing}">
+            <VerticalStackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Spacing="15">
+                <ActivityIndicator IsRunning="True"
+                                   Color="White"
+                                   HeightRequest="50"
+                                   WidthRequest="50"/>
+                <Label Text="Analyzing photo..."
+                       TextColor="White"
+                       FontSize="18"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

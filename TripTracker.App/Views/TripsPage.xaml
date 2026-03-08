@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:TripTracker.App.ViewModels"
+             x:Class="TripTracker.App.Views.TripsPage"
+             Title="My Trips">
+
+    <!-- Hoofdpagina met lijst van trips -->
+    <!-- Zoals ListPage in SafariSnap (Les 3) -->
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="10">
+
+        <!-- Header met map en add button (titel via ContentPage.Title) -->
+        <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+            <Button Text="🌍"
+                    Command="{Binding ShowAllOnMapCommand}"
+                    FontSize="22"
+                    BackgroundColor="#512BD4"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Padding="0"/>
+            <Button Text="+"
+                    Command="{Binding AddTripCommand}"
+                    FontSize="22"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Padding="0"/>
+        </HorizontalStackLayout>
+
+        <!-- Jaar filter tabs -->
+        <ScrollView Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,10,0,5">
+            <StackLayout BindableLayout.ItemsSource="{Binding YearFilters}"
+                         Orientation="Horizontal"
+                         Spacing="8">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Text="{Binding DisplayText}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripsViewModel}}, Path=SelectYearCommand}"
+                                CommandParameter="{Binding}"
+                                Padding="15,8"
+                                CornerRadius="15"
+                                FontSize="14"
+                                BackgroundColor="#E0E0E0"
+                                TextColor="Black">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsSelected}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#512BD4"/>
+                                    <Setter Property="TextColor" Value="White"/>
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- CollectionView met trips -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding FilteredTrips}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- SwipeView voor edit/delete acties -->
+                    <SwipeView>
+                        <!-- Swipe rechts voor Edit -->
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit"
+                                           BackgroundColor="#512BD4"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripsViewModel}}, Path=EditTripCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <!-- Swipe links voor Delete -->
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripsViewModel}}, Path=DeleteTripCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Margin="0,5" Padding="15" StrokeShape="RoundRectangle 10" Stroke="LightGray" BackgroundColor="White">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripsViewModel}}, Path=ViewTripCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="15">
+                                <!-- Trip afbeelding -->
+                                <Image Source="{Binding ImageUrl}"
+                                       WidthRequest="80"
+                                       HeightRequest="80"
+                                       Aspect="AspectFill"/>
+
+                                <!-- Trip info -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="Black"/>
+                                    <Label Text="{Binding Description}"
+                                           FontSize="14"
+                                           TextColor="Gray"
+                                           MaxLines="2"/>
+                                    <Label FontSize="12" TextColor="DarkGray">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding StartDate, StringFormat='{0:dd MMM yyyy}'}"/>
+                                                <Span Text=" - "/>
+                                                <Span Text="{Binding EndDate, StringFormat='{0:dd MMM yyyy}'}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="No trips yet" FontSize="18" TextColor="Gray"/>
+                    <Label Text="Tap + to add your first trip" FontSize="14" TextColor="LightGray"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Loading overlay -->
+        <Grid Grid.RowSpan="3" BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">
+            <ActivityIndicator IsRunning="True" Color="White" HeightRequest="50" WidthRequest="50"
+                               VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
+    </Grid>
+</ContentPage>

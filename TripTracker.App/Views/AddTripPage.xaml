@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TripTracker.App.Views.AddTripPage"
+             Title="New Trip">
+
+    <!-- Pagina voor het toevoegen van een nieuwe trip -->
+    <!-- Zoals AddStopPage (Les 3 - SafariSnap pattern) -->
+
+    <ScrollView Padding="15">
+        <VerticalStackLayout Spacing="15">
+
+            <!-- FOTO SECTIE -->
+            <Border Stroke="LightGray"
+                    Padding="0"
+                    HeightRequest="200"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="White">
+                <Grid>
+                    <!-- Placeholder als geen foto -->
+                    <VerticalStackLayout IsVisible="{Binding HasPhoto, Converter={StaticResource InvertedBoolConverter}}"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         Spacing="10">
+                        <Label Text="Take or pick a photo"
+                               FontSize="16"
+                               TextColor="Gray"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+
+                    <!-- Foto preview -->
+                    <Image Source="{Binding PhotoPreview}"
+                           Aspect="AspectFill"
+                           IsVisible="{Binding HasPhoto}"/>
+
+                    <!-- Tap gesture voor hele border -->
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PickPhotoCommand}"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Border>
+
+            <!-- Camera/Gallery buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Text="Camera"
+                        Command="{Binding CapturePhotoCommand}"
+                        BackgroundColor="#512BD4"/>
+                <Button Text="Gallery"
+                        Command="{Binding PickPhotoCommand}"
+                        Grid.Column="1"
+                        BackgroundColor="#512BD4"/>
+            </Grid>
+
+            <!-- Trip naam (verplicht) -->
+            <VerticalStackLayout>
+                <Label Text="Name *" FontAttributes="Bold"/>
+                <Entry Text="{Binding Name}"
+                       Placeholder="Enter trip name"
+                       FontSize="18"/>
+            </VerticalStackLayout>
+
+            <!-- Beschrijving -->
+            <VerticalStackLayout>
+                <Label Text="Description" FontAttributes="Bold"/>
+                <Editor Text="{Binding Description}"
+                        Placeholder="Enter trip description"
+                        HeightRequest="100"
+                        AutoSize="TextChanges"/>
+            </VerticalStackLayout>
+
+            <!-- Datums -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="15">
+                <!-- Start datum -->
+                <VerticalStackLayout>
+                    <Label Text="Start Date" FontAttributes="Bold"/>
+                    <DatePicker Date="{Binding StartDate}"
+                                Format="dd MMM yyyy"/>
+                </VerticalStackLayout>
+
+                <!-- Eind datum -->
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="End Date" FontAttributes="Bold"/>
+                    <DatePicker Date="{Binding EndDate}"
+                                Format="dd MMM yyyy"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Save/Cancel knoppen -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="LightGray"
+                        TextColor="Black"/>
+                <Button Text="Save Trip"
+                        Command="{Binding SaveCommand}"
+                        Grid.Column="1"
+                        BackgroundColor="#512BD4"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

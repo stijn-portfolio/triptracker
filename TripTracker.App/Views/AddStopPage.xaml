@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TripTracker.App.Views.AddStopPage"
+             Title="Add Stop">
+
+    <!-- HERZIEN Fase 6+7: Smart Stop Capture -->
+    <!-- Nieuwe UX: Foto eerst, dan AI analyse, dan bewerken -->
+
+    <Grid>
+        <!-- Hoofdinhoud -->
+        <ScrollView Padding="15">
+            <VerticalStackLayout Spacing="15">
+
+                <!-- FOTO SECTIE (prominent bovenaan) -->
+                <Border Stroke="LightGray"
+                        Padding="0"
+                        HeightRequest="250"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="White">
+                    <Grid>
+                        <!-- Placeholder als geen foto -->
+                        <VerticalStackLayout IsVisible="{Binding HasPhoto, Converter={StaticResource InvertedBoolConverter}}"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="Center"
+                                             Spacing="10">
+                            <Label Text="Take or pick a photo to start"
+                                   FontSize="16"
+                                   TextColor="Gray"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+
+                        <!-- Foto preview -->
+                        <Image Source="{Binding PhotoPreview}"
+                               Aspect="AspectFill"
+                               IsVisible="{Binding HasPhoto}"/>
+                    </Grid>
+                </Border>
+
+                <!-- Camera/Galerij knoppen -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Text="Camera"
+                            Command="{Binding CapturePhotoCommand}"
+                            BackgroundColor="#512BD4"/>
+                    <Button Text="Gallery"
+                            Command="{Binding PickPhotoCommand}"
+                            Grid.Column="1"
+                            BackgroundColor="#512BD4"/>
+                </Grid>
+
+                <!-- AI Analyse knop (alleen zichtbaar als er een foto is) -->
+                <Button Text="Analyze Photo with AI"
+                        Command="{Binding AnalyzePhotoCommand}"
+                        IsVisible="{Binding HasPhoto}"
+                        BackgroundColor="#512BD4"
+                        TextColor="White"/>
+
+                <!-- BEWERKBARE VELDEN (zichtbaar na foto) -->
+                <VerticalStackLayout IsVisible="{Binding HasPhoto}" Spacing="15">
+
+                    <!-- Title -->
+                    <VerticalStackLayout>
+                        <Label Text="Title *" FontAttributes="Bold"/>
+                        <Entry Text="{Binding Title}"
+                               Placeholder="Enter title (or use AI)"
+                               FontSize="18"/>
+                    </VerticalStackLayout>
+
+                    <!-- Description (meer ruimte voor AI tekst) -->
+                    <VerticalStackLayout>
+                        <Label Text="Description" FontAttributes="Bold"/>
+                        <Editor Text="{Binding Description}"
+                                Placeholder="Enter description (or use AI)"
+                                HeightRequest="150"
+                                AutoSize="TextChanges"/>
+                    </VerticalStackLayout>
+
+                    <!-- Location info (auto-filled) -->
+                    <Border Stroke="LightGray" Padding="10" StrokeShape="RoundRectangle 8" BackgroundColor="White">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Location" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+
+                            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" RowDefinitions="Auto, Auto">
+                                <VerticalStackLayout>
+                                    <Label Text="Latitude" FontSize="12" TextColor="Gray"/>
+                                    <Label Text="{Binding LatitudeDisplay}" FontSize="14" TextColor="{StaticResource Gray600}"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="Longitude" FontSize="12" TextColor="Gray"/>
+                                    <Label Text="{Binding LongitudeDisplay}" FontSize="14" TextColor="{StaticResource Gray600}"/>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <VerticalStackLayout>
+                                <Label Text="Address" FontSize="12" TextColor="Gray"/>
+                                <Label Text="{Binding Address}" FontSize="14" TextColor="{StaticResource Gray600}"/>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout>
+                                <Label Text="Country" FontSize="12" TextColor="Gray"/>
+                                <Label Text="{Binding Country}" FontSize="14" TextColor="{StaticResource Gray600}"/>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Save/Cancel knoppen -->
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Margin="0,10,0,0">
+                        <Button Text="Cancel"
+                                Command="{Binding CancelCommand}"
+                                BackgroundColor="LightGray"
+                                TextColor="Black"/>
+                        <Button Text="Save Stop"
+                                Command="{Binding SaveCommand}"
+                                Grid.Column="1"
+                                BackgroundColor="#512BD4"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading overlay tijdens AI analyse -->
+        <Grid BackgroundColor="#80000000"
+              IsVisible="{Binding IsAnalyzing}">
+            <VerticalStackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Spacing="15">
+                <ActivityIndicator IsRunning="True"
+                                   Color="White"
+                                   HeightRequest="50"
+                                   WidthRequest="50"/>
+                <Label Text="Analyzing photo..."
+                       TextColor="White"
+                       FontSize="18"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+
+</ContentPage>

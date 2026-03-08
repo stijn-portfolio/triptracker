@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:TripTracker.App.ViewModels"
+             x:Class="TripTracker.App.Views.TripDetailPage"
+             Title="{Binding CurrentTrip.Name}">
+
+    <!-- Detail pagina voor een trip met stops -->
+    <!-- Zoals DetailsPage in SafariSnap (Les 3) -->
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="10">
+
+        <!-- Trip header (titel via ContentPage.Title) -->
+        <VerticalStackLayout Spacing="5">
+            <Image Source="{Binding CurrentTrip.ImageUrl}"
+                   HeightRequest="200"
+                   Aspect="AspectFill"/>
+            <Label Text="{Binding CurrentTrip.Description}"
+                   FontSize="14"
+                   TextColor="Gray"/>
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="{Binding CurrentTrip.StartDate, StringFormat='Start: {0:dd MMM yyyy}'}"
+                       FontSize="12"/>
+                <Label Text="{Binding CurrentTrip.EndDate, StringFormat='End: {0:dd MMM yyyy}'}"
+                       FontSize="12"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Stops header met map en add button -->
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10" Margin="0,15,0,10">
+            <Label Text="Stops"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"/>
+            <Button Text="🌍"
+                    Command="{Binding ShowTripOnMapCommand}"
+                    Grid.Column="1"
+                    FontSize="22"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Padding="0"
+                    BackgroundColor="#512BD4"/>
+            <Button Text="+ Add Stop"
+                    Command="{Binding AddStopCommand}"
+                    Grid.Column="2"/>
+        </Grid>
+
+        <!-- CollectionView met stops -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding TripStops}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- SwipeView voor edit/delete acties -->
+                    <SwipeView>
+                        <!-- Swipe rechts voor Edit -->
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Edit"
+                                           BackgroundColor="#512BD4"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripDetailViewModel}}, Path=EditStopCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <!-- Swipe links voor Delete -->
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripDetailViewModel}}, Path=DeleteStopCommand}"
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border Margin="0,5" Padding="10" StrokeShape="RoundRectangle 8" Stroke="LightGray" BackgroundColor="White">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TripDetailViewModel}}, Path=ViewStopCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                <!-- Stop foto -->
+                                <Image Source="{Binding PhotoUrl}"
+                                       WidthRequest="60"
+                                       HeightRequest="60"
+                                       Aspect="AspectFill"/>
+
+                                <!-- Stop info -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="Black"/>
+                                    <Label Text="{Binding Address}"
+                                           FontSize="12"
+                                           TextColor="Gray"/>
+                                    <Label Text="{Binding DateTime, StringFormat='{0:dd MMM yyyy HH:mm}'}"
+                                           FontSize="10"
+                                           TextColor="DarkGray"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="No stops yet" FontSize="18" TextColor="Gray"/>
+                    <Label Text="Tap 'Add Stop' to add your first stop" FontSize="14" TextColor="LightGray"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- Loading overlay -->
+        <Grid Grid.RowSpan="3" BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">
+            <ActivityIndicator IsRunning="True" Color="White" HeightRequest="50" WidthRequest="50"
+                               VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
+    </Grid>
+</ContentPage>
