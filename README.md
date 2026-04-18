@@ -12,9 +12,13 @@ Een cross-platform mobile app waarmee je reizen kunt plannen en bijhouden, met f
 |-------------------------------|-----------------|
 | ![Stop](docs/screenshots/triptracker-stop-detail.png) | ![Kaart](docs/screenshots/triptracker-map-overview.png) |
 
-| Edit stop | Stop op kaart |
-|-----------|---------------|
-| ![Edit](docs/screenshots/triptracker-edit-stop.png) | ![Stop kaart](docs/screenshots/triptracker-stop-map.png) |
+| Swipe to edit | Edit stop |
+|---------------|-----------|
+| ![Swipe](docs/screenshots/triptracker-swipe-edit.png) | ![Edit](docs/screenshots/triptracker-edit-stop.png) |
+
+| Add stop | Stop op kaart |
+|----------|---------------|
+| ![Add](docs/screenshots/triptracker-add-stop.png) | ![Stop kaart](docs/screenshots/triptracker-stop-map.png) |
 
 ## Tech stack
 
