@@ -48,3 +48,9 @@ appsettings.Development.json
 # Database
 *.mdf
 *.ldf
+
+# IDE & tooling
+.claude/
+.obsidian/
+.vscode/
+CLAUDE.md
