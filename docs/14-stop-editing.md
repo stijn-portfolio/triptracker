@@ -10,7 +10,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 14: Stop Editing & AI Describe
+# Fase 14: stop editing & AI describe
 
 ## Overzicht
 
@@ -21,7 +21,7 @@ In deze fase hebben we **EditStopPage** uitgebreid met foto-wijziging, AI-analys
 
 ---
 
-## Feature Overzicht
+## Feature overzicht
 
 | Feature | Beschrijving |
 |---------|--------------|
@@ -33,7 +33,7 @@ In deze fase hebben we **EditStopPage** uitgebreid met foto-wijziging, AI-analys
 
 ---
 
-## MVVM Architectuur
+## MVVM architectuur
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -68,7 +68,7 @@ In deze fase hebben we **EditStopPage** uitgebreid met foto-wijziging, AI-analys
 
 ---
 
-## Forward Geocoding
+## Forward geocoding
 
 **Reverse Geocoding:** GPS → Adres (gebruikt bij AddStop)
 **Forward Geocoding:** Adres → GPS (gebruikt bij EditStop)
@@ -108,9 +108,9 @@ if (!string.IsNullOrWhiteSpace(Address) && Address != originalAddress)
 
 ---
 
-## AI Describe met Loading State
+## AI describe met loading state
 
-### ViewModel Implementation
+### ViewModel implementation
 
 ```csharp
 // EditStopViewModel.cs
@@ -144,7 +144,7 @@ private async Task AnalyzePhoto()
 }
 ```
 
-### DataTrigger voor Button Tekst
+### DataTrigger voor button tekst
 
 ```xml
 <!-- EditStopPage.xaml -->
@@ -305,7 +305,7 @@ private async Task AnalyzePhoto()
 </ContentPage>
 ```
 
-### XAML Highlights
+### XAML highlights
 
 | Element | Concept | Uitleg |
 |---------|---------|--------|
@@ -323,7 +323,7 @@ private async Task AnalyzePhoto()
 
 ---
 
-## Auto-refresh met Meerdere Message Types
+## Auto-refresh met meerdere message types
 
 StopDetailViewModel luistert naar meerdere message types:
 
@@ -373,7 +373,7 @@ public class StopDetailViewModel : ObservableRecipient,
 
 ---
 
-## Foto Lokaal Opslaan Pattern
+## Foto lokaal opslaan pattern
 
 ```csharp
 private async Task<string> SavePhotoLocally()
@@ -404,7 +404,7 @@ private async Task<string> SavePhotoLocally()
 
 ---
 
-## Swipe Acties Overzicht
+## Swipe acties overzicht
 
 | Page | Swipe Rechts (←) | Swipe Links (→) |
 |------|------------------|-----------------|
@@ -458,7 +458,7 @@ private async Task<string> SavePhotoLocally()
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -472,7 +472,7 @@ private async Task<string> SavePhotoLocally()
 
 ## Examenvragen
 
-### Vraag 1: Forward vs Reverse Geocoding
+### Vraag 1: forward vs reverse geocoding
 
 **Vraag:** Wat is het verschil tussen forward en reverse geocoding?
 
@@ -492,7 +492,7 @@ var locations = await Geocoding.GetLocationsAsync("Amsterdam, NL");
 
 ---
 
-### Vraag 2: DataTrigger voor Loading State
+### Vraag 2: DataTrigger voor loading state
 
 **Vraag:** Hoe toon je "Analyzing..." tijdens een async operatie met DataTrigger?
 
@@ -521,7 +521,7 @@ var locations = await Geocoding.GetLocationsAsync("Amsterdam, NL");
 
 ---
 
-### Vraag 3: Fire-and-Forget Pattern
+### Vraag 3: fire-and-Forget pattern
 
 **Vraag:** Wat betekent `_ = RefreshCurrentStop()` en waarom wordt dit gebruikt?
 
@@ -546,7 +546,7 @@ public void Receive(RefreshDataMessage message)
 
 ---
 
-### Vraag 4: Meerdere IRecipient Interfaces
+### Vraag 4: meerdere iRecipient interfaces
 
 **Vraag:** Hoe laat je een ViewModel luisteren naar meerdere message types?
 
@@ -577,7 +577,7 @@ public class StopDetailViewModel : ObservableRecipient,
 
 ---
 
-### Vraag 5: try-finally voor Loading State
+### Vraag 5: try-finally voor loading state
 
 **Vraag:** Waarom staat `IsAnalyzing = false` in een `finally` block?
 
@@ -606,7 +606,7 @@ private async Task AnalyzePhoto()
 
 ---
 
-### Vraag 6: Foto Path vs Bytes
+### Vraag 6: foto path vs bytes
 
 **Vraag:** Waarom slaan we de foto lokaal op in plaats van base64 naar de API te sturen?
 

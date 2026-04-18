@@ -33,7 +33,7 @@ In deze fase hebben we een **interactieve kaart** geïmplementeerd met Mapsui (O
 
 ---
 
-## MVVM Architectuur met Event Bridge
+## MVVM architectuur met event bridge
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -76,7 +76,7 @@ In deze fase hebben we een **interactieve kaart** geïmplementeerd met Mapsui (O
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### MVVM Exception Uitleg
+### MVVM exception uitleg
 
 MapPage code-behind bevat Mapsui setup code. Dit is een **gedocumenteerde uitzondering** omdat:
 1. Mapsui MapControl vereist programmatische initialisatie
@@ -87,7 +87,7 @@ MapPage code-behind bevat Mapsui setup code. Dit is een **gedocumenteerde uitzon
 
 ---
 
-## Message Pattern met Tuple
+## Message pattern met tuple
 
 ### ShowStopsOnMapMessage
 
@@ -119,7 +119,7 @@ public void Receive(ShowStopsOnMapMessage message)
 
 ---
 
-## Event Bridge Pattern
+## Event bridge pattern
 
 De ViewModel gebruikt een **event** om de View te notificeren:
 
@@ -148,7 +148,7 @@ private void OnStopsUpdated()
 
 ---
 
-## Coordinate Projectie
+## Coordinate projectie
 
 GPS coördinaten (WGS84) moeten worden omgezet naar Web Mercator voor de kaart:
 
@@ -164,7 +164,7 @@ var point = SphericalMercator.FromLonLat(stop.Longitude, stop.Latitude);
 
 ---
 
-## ThemeStyle voor Kleuren per Trip
+## ThemeStyle voor kleuren per trip
 
 Mapsui's `ThemeStyle` bepaalt styling per feature:
 
@@ -213,7 +213,7 @@ private IStyle CreatePinStyleFromFeature(IFeature feature)
 
 ---
 
-## Launch Contexten
+## Launch contexten
 
 De MapPage kan vanuit 3 plekken worden geopend:
 
@@ -237,7 +237,7 @@ private async Task ShowOnMap()
 
 ---
 
-## NuGet Dependencies
+## NuGet dependencies
 
 ```xml
 <!-- TripTracker.App.csproj -->
@@ -254,7 +254,7 @@ builder.UseMauiApp<App>()
 
 ## Bestanden
 
-### Nieuw Gemaakt
+### Nieuw gemaakt
 
 | Bestand | Doel |
 |---------|------|
@@ -276,7 +276,7 @@ builder.UseMauiApp<App>()
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -289,7 +289,7 @@ builder.UseMauiApp<App>()
 
 ## Examenvragen
 
-### Vraag 1: MVVM Exception
+### Vraag 1: MVVM exception
 
 **Vraag:** Waarom heeft MapPage code in de code-behind, en is dit een MVVM violation?
 
@@ -308,7 +308,7 @@ MapPage.xaml.cs bevat Mapsui setup code (layers, features, styling). Dit is een 
 
 ---
 
-### Vraag 2: Event Bridge Pattern
+### Vraag 2: event bridge pattern
 
 **Vraag:** Waarom gebruikt MapViewModel een `event Action` in plaats van PropertyChanged?
 
@@ -331,7 +331,7 @@ public void Receive(ShowStopsOnMapMessage message)
 
 ---
 
-### Vraag 3: Tuple in Message
+### Vraag 3: tuple in message
 
 **Vraag:** Hoe stuur je meerdere waarden in één message?
 
@@ -357,7 +357,7 @@ var (stops, mapTitle) = message.Value;
 
 ---
 
-### Vraag 4: Coordinate Projectie
+### Vraag 4: coordinate projectie
 
 **Vraag:** Waarom moet je `SphericalMercator.FromLonLat()` gebruiken voor kaartpunten?
 
@@ -378,7 +378,7 @@ Zonder conversie zou de pin op de verkeerde locatie verschijnen.
 
 ---
 
-### Vraag 5: ThemeStyle Delegate
+### Vraag 5: ThemeStyle delegate
 
 **Vraag:** Hoe geef je elke trip een andere kleur op de kaart?
 
@@ -411,7 +411,7 @@ private IStyle CreatePinStyleFromFeature(IFeature feature)
 
 ---
 
-### Vraag 6: Modulo voor Kleur Herhaling
+### Vraag 6: modulo voor kleur herhaling
 
 **Vraag:** Wat doet `colorIndex % TripColors.Length` en waarom is het nodig?
 

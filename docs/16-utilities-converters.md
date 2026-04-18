@@ -9,7 +9,7 @@ tags:
 created: 2025-12-25
 ---
 
-# Fase 16: Utilities & Converters
+# Fase 16: utilities & converters
 
 ## Overzicht
 
@@ -20,9 +20,9 @@ In deze fase documenteren we de **helper classes** en **XAML Value Converters** 
 
 ---
 
-## Simpele Uitleg Eerst
+## Simpele uitleg eerst
 
-### PhotoService - Wat doet het?
+### PhotoService - wat doet het?
 
 **Eén service die ALLES doet voor foto's:**
 
@@ -56,7 +56,7 @@ Waarom?
 - Server niet overbelasten
 ```
 
-### Android Retry Probleem
+### Android retry probleem
 
 ```
 Android probleem:
@@ -82,7 +82,7 @@ var bytes = await _photoService.CapturePhotoAsync();
 
 ---
 
-### IValueConverter - Wat is het?
+### IValueConverter - wat is het?
 
 **Een "vertaler" tussen ViewModel en XAML**
 
@@ -97,7 +97,7 @@ HasPhoto = true     →     InvertedBool     →     IsVisible = false
 
 ---
 
-### InvertedBoolConverter - Simpel
+### InvertedBoolConverter - simpel
 
 **Probleem:** Je hebt `HasPhoto`, maar wilt placeholder tonen als GEEN foto.
 
@@ -124,7 +124,7 @@ HasPhoto = true   →  InvertedBool  →  IsVisible = false →  Placeholder VER
 
 ---
 
-### YearSelectedConverter - Simpel
+### YearSelectedConverter - simpel
 
 **Probleem:** Button moet paars zijn als geselecteerd, grijs als niet.
 
@@ -156,7 +156,7 @@ Resultaat: [All] [2025] [2024]
 
 ---
 
-### Converter vs DataTrigger - Wanneer Welke?
+### Converter vs DataTrigger - wanneer welke?
 
 | Situatie | Gebruik |
 |----------|---------|
@@ -185,7 +185,7 @@ Converter={StaticResource InvertedBoolConverter}
 
 ---
 
-## PhotoService - Foto Capture & Resize
+## PhotoService - foto capture & resize
 
 ### Wat doet het?
 
@@ -262,7 +262,7 @@ private async Task CapturePhoto()
 }
 ```
 
-### Waarom DI i.p.v. Static?
+### Waarom DI i.p.v. static?
 
 | Static (oud) | DI (nieuw) |
 |--------------|------------|
@@ -279,9 +279,9 @@ private async Task CapturePhoto()
 
 ---
 
-## IValueConverter Interface
+## IValueConverter interface
 
-### Wat is een Converter?
+### Wat is een converter?
 
 Een converter transformeert data tussen ViewModel en View in XAML bindings.
 
@@ -494,7 +494,7 @@ In Fase 15 (YearFilterItem met IsSelected property) gebruiken we DataTrigger i.p
 
 ---
 
-## Converter vs Computed Property vs DataTrigger
+## Converter vs computed property vs DataTrigger
 
 | Methode | Wanneer |
 |---------|---------|
@@ -531,7 +531,7 @@ IsVisible="{Binding HasPhoto, Converter={StaticResource InvertedBoolConverter}}"
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -544,7 +544,7 @@ IsVisible="{Binding HasPhoto, Converter={StaticResource InvertedBoolConverter}}"
 
 ## Examenvragen
 
-### Vraag 1: Convert vs ConvertBack
+### Vraag 1: convert vs ConvertBack
 
 **Vraag:** Wat is het verschil tussen `Convert` en `ConvertBack` in IValueConverter?
 
@@ -607,7 +607,7 @@ public object? Convert(object? value, Type targetType, object? parameter, ...)
 
 ---
 
-### Vraag 3: Converter vs Computed Property
+### Vraag 3: converter vs computed property
 
 **Vraag:** Wanneer gebruik je een converter in plaats van een computed property?
 
@@ -631,7 +631,7 @@ public object? Convert(object? value, Type targetType, object? parameter, ...)
 
 ---
 
-### Vraag 4: Waarom Photo Resizing?
+### Vraag 4: waarom photo resizing?
 
 **Vraag:** Waarom resize je foto's voordat je ze naar de API stuurt?
 
@@ -676,7 +676,7 @@ var newImage = image.Downsize(1024, true);
 
 ---
 
-### Vraag 6: Static vs DI Service
+### Vraag 6: static vs DI service
 
 **Vraag:** Wanneer kies je voor een static class in plaats van een DI service?
 

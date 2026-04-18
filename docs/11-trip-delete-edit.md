@@ -10,7 +10,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 11: SwipeView Delete & Edit
+# Fase 11: SwipeView delete & edit
 
 ## Overzicht
 
@@ -36,7 +36,7 @@ In deze fase hebben we **SwipeView** geïmplementeerd voor het verwijderen en be
 
 ---
 
-## MVVM Architectuur
+## MVVM architectuur
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -72,7 +72,7 @@ In deze fase hebben we **SwipeView** geïmplementeerd voor het verwijderen en be
 
 ---
 
-## SwipeView XAML Pattern
+## SwipeView XAML pattern
 
 ### Basisstructuur
 
@@ -122,7 +122,7 @@ In deze fase hebben we **SwipeView** geïmplementeerd voor het verwijderen en be
 
 ---
 
-## Delete Implementatie
+## Delete implementatie
 
 ### 1. Command in ViewModel
 
@@ -180,13 +180,13 @@ Na `DeleteAsync()` verwijderen we het item ook uit de lokale `ObservableCollecti
 
 ---
 
-## Edit Implementatie met Messages
+## Edit implementatie met messages
 
-### Probleem: Data overdracht bij navigatie
+### Probleem: data overdracht bij navigatie
 
 Bij Edit willen we de **complete Trip** doorgeven, niet alleen een ID. Query parameters zijn beperkt tot strings.
 
-### Oplossing: ValueChangedMessage Pattern
+### Oplossing: ValueChangedMessage pattern
 
 ```csharp
 // Messages/TripEditMessage.cs
@@ -196,7 +196,7 @@ public class TripEditMessage : ValueChangedMessage<Trip>
 }
 ```
 
-### Flow: Edit Command → Message → EditTripViewModel
+### Flow: edit command → message → EditTripViewModel
 
 ```csharp
 // TripsViewModel.cs - VERSTUREN
@@ -239,7 +239,7 @@ public class EditTripViewModel : ObservableRecipient, IRecipient<TripEditMessage
 
 ---
 
-## RelativeSource Binding in DataTemplate
+## RelativeSource binding in DataTemplate
 
 Binnen een `DataTemplate` (zoals in CollectionView) is de `BindingContext` het **item** (Trip), niet de ViewModel.
 
@@ -265,7 +265,7 @@ Om commands in de parent ViewModel aan te roepen:
 
 ## Bestanden
 
-### Nieuw Gemaakt
+### Nieuw gemaakt
 
 | Bestand | Doel |
 |---------|------|
@@ -289,7 +289,7 @@ Om commands in de parent ViewModel aan te roepen:
 
 ---
 
-## API Endpoints
+## API endpoints
 
 | Actie | Endpoint | Method |
 |-------|----------|--------|
@@ -299,7 +299,7 @@ Om commands in de parent ViewModel aan te roepen:
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -348,7 +348,7 @@ Dit zoekt naar een parent van type `TripsViewModel` en bindt aan diens `DeleteCo
 
 ---
 
-### Vraag 3: ValueChangedMessage Pattern
+### Vraag 3: ValueChangedMessage pattern
 
 **Vraag:** Waarom gebruiken we `TripEditMessage` in plaats van query parameters voor edit?
 
@@ -408,7 +408,7 @@ public class EditTripViewModel : ObservableRecipient, IRecipient<TripEditMessage
 
 ---
 
-### Vraag 5: DisplayAlert voor Bevestiging
+### Vraag 5: DisplayAlert voor bevestiging
 
 **Vraag:** Hoe vraag je bevestiging voordat een item wordt verwijderd?
 
@@ -437,7 +437,7 @@ private async Task DeleteTrip(Trip? trip)
 
 ---
 
-### Vraag 6: Lokale Collectie Update
+### Vraag 6: lokale collectie update
 
 **Vraag:** Waarom roepen we `Trips.Remove(trip)` aan na `DeleteAsync()`?
 

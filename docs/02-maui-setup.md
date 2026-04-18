@@ -10,7 +10,7 @@ tags:
 created: 2025-12-20
 ---
 
-# TripTracker MAUI - Project Setup & MVVM Fundamentals
+# TripTracker MAUI - project setup & MVVM fundamentals
 
 ## Overzicht
 
@@ -41,7 +41,7 @@ Deze documentatie beschrijft de **TripTracker.App** setup: het .NET MAUI project
 >
 > **Hoe?** MAUI compileert naar native code per platform. XAML wordt vertaald naar platform-specifieke UI componenten.
 
-### MAUI vs Xamarin
+### MAUI vs xamarin
 
 | Aspect | Xamarin | .NET MAUI |
 |--------|---------|-----------|
@@ -67,7 +67,7 @@ Deze documentatie beschrijft de **TripTracker.App** setup: het .NET MAUI project
 >
 > **Data binding** verbindt View en ViewModel zonder code-behind.
 
-### MVVM Voordelen
+### MVVM voordelen
 
 | Voordeel | Uitleg | Voorbeeld |
 |----------|--------|-----------|
@@ -108,7 +108,7 @@ Deze documentatie beschrijft de **TripTracker.App** setup: het .NET MAUI project
 
 ---
 
-## 3. Project Structuur
+## 3. Project structuur
 
 ### Mappenstructuur TripTracker.App
 
@@ -149,7 +149,7 @@ TripTracker.App/
 
 ---
 
-## 4. MauiProgram.cs - Dependency Injection Setup
+## 4. MauiProgram.cs - dependency injection setup
 
 **Locatie:** `MauiProgram.cs`
 
@@ -242,7 +242,7 @@ public static class MauiProgram
 
 ### Uitleg per sectie
 
-#### 1. App Configuratie
+#### 1. App configuratie
 
 ```csharp
 var builder = MauiApp.CreateBuilder();
@@ -258,7 +258,7 @@ builder
 > [!tip] Examenvraag: Wat doet `UseMauiApp<App>()`?
 > Dit registreert de `App` class als entry point van de applicatie. Dit is de `App.xaml.cs` die de `AppShell` initialiseert.
 
-#### 2. Debug Logging
+#### 2. Debug logging
 
 ```csharp
 #if DEBUG
@@ -269,7 +269,7 @@ builder
 > [!info] Conditional Compilation
 > `#if DEBUG` compileert alleen in Debug mode, niet in Release builds. Dit voorkomt onnodige logging in productie.
 
-#### 3. Exception Handlers
+#### 3. Exception handlers
 
 ```csharp
 AppDomain.CurrentDomain.UnhandledException += (s, e) =>
@@ -298,7 +298,7 @@ AppDomain.CurrentDomain.FirstChanceException += (s, e) =>
 >
 > **Nuttig voor debugging:** Je ziet alle errors, ook die normaal "verdwijnen" in try-catch blocks.
 
-#### 4. Services Registratie
+#### 4. Services registratie
 
 ```csharp
 builder.Services.AddTransient<INavigationService, NavigationService>();
@@ -323,7 +323,7 @@ builder.Services.AddSingleton<IAnalyzeImageService, AnalyzeImageService>();
 > **Waarom PhotoService singleton?**
 > Photo/geolocation services kunnen state bijhouden (permissions, caching).
 
-#### 5. Pages & ViewModels Registratie
+#### 5. Pages & ViewModels registratie
 
 ```csharp
 // Hoofdpagina - Singleton
@@ -380,7 +380,7 @@ In MVVM moeten **models** de UI kunnen notifieren bij property changes. Hiervoor
 > // UI toont meteen "Nieuwe naam"
 > ```
 
-### Trip Model
+### Trip model
 
 **Locatie:** `Models/Trip.cs`
 
@@ -446,7 +446,7 @@ namespace TripTracker.App.Models
 }
 ```
 
-#### Property Pattern Uitleg
+#### Property pattern uitleg
 
 ```csharp
 private string name = string.Empty;
@@ -480,7 +480,7 @@ public string Name
 > }
 > ```
 
-#### ObservableCollection vs List
+#### ObservableCollection vs list
 
 ```csharp
 private ObservableCollection<TripStop> tripStops = new();
@@ -512,7 +512,7 @@ public ObservableCollection<TripStop> TripStops
 > // UI toont nieuwe stop meteen!
 > ```
 
-### TripStop Model
+### TripStop model
 
 **Locatie:** `Models/TripStop.cs`
 
@@ -601,7 +601,7 @@ namespace TripTracker.App.Models
 }
 ```
 
-#### Geen Navigation Property in MAUI Model
+#### Geen navigation property in MAUI model
 
 > [!info] Waarom geen `Trip? Trip` in TripStop?
 > In de **API Entity** heb je wel `Trip` navigation property voor EF Core relaties.
@@ -623,7 +623,7 @@ namespace TripTracker.App.Models
 
 ---
 
-## 6. App.xaml.cs - Application Entry Point
+## 6. App.xaml.cs - application entry point
 
 **Locatie:** `App.xaml.cs`
 
@@ -693,7 +693,7 @@ protected override Window CreateWindow(IActivationState? activationState)
 
 ---
 
-## 7. AppShell.xaml - Navigatie Structuur
+## 7. AppShell.xaml - navigatie structuur
 
 **Locatie:** `AppShell.xaml`
 
@@ -733,9 +733,9 @@ public partial class AppShell : Shell
 }
 ```
 
-### XAML Uitleg
+### XAML uitleg
 
-#### 1. Shell Element
+#### 1. Shell element
 
 ```xml
 <Shell
@@ -827,12 +827,12 @@ Icon="{OnPlatform 'dotnet_bot.png', iOS='dotnet_bot.png', MacCatalyst='dotnet_bo
 >
 > In dit geval gebruiken we dezelfde icon voor alle platforms, maar syntactisch tonen we hoe het werkt.
 
-### Navigatie: NavigationService (niet Shell Routes!)
+### Navigatie: NavigationService (niet shell routes!)
 
 > [!warning] TripTracker gebruikt GEEN Shell Routes!
 > Er zijn 2 navigatie-methodes in MAUI. TripTracker (en SafariSnap) gebruiken **NavigationService met DI**, niet Shell Routes.
 
-#### Methode 1: Shell Routes (NIET gebruikt in TripTracker)
+#### Methode 1: shell routes (NIET gebruikt in TripTracker)
 
 ```csharp
 // In AppShell.xaml.cs - NIET WAT WIJ DOEN
@@ -935,7 +935,7 @@ public class NavigationService : INavigationService
 
 ---
 
-## 8. NuGet Packages
+## 8. NuGet packages
 
 TripTracker.App gebruikt de volgende key packages:
 
@@ -992,7 +992,7 @@ TripTracker.App gebruikt de volgende key packages:
 
 ---
 
-## 9. Vergelijking API Models vs MAUI Models
+## 9. Vergelijking API models vs MAUI models
 
 > [!warning] LET OP: Verschillende Models!
 > **API Models** (TripTracker.API/Entities) en **MAUI Models** (TripTracker.App/Models) lijken op elkaar maar dienen verschillende doeleinden.
@@ -1005,7 +1005,7 @@ TripTracker.App gebruikt de volgende key packages:
 | **Collections** | `ICollection<T>` | `ObservableCollection<T>` | MAUI voor UI binding |
 | **Purpose** | Database mapping (EF Core) | UI data binding (XAML) | Verschillende lagen |
 
-### API Entity vs MAUI Model - Voorbeeld
+### API entity vs MAUI model - voorbeeld
 
 **API Entity:**
 ```csharp
@@ -1064,7 +1064,7 @@ public class Trip : ObservableObject
 
 ---
 
-## 10. Examenvragen & Antwoorden
+## 10. Examenvragen & antwoorden
 
 > [!tip] Examenvraag 1: Wat is .NET MAUI en wat zijn de voordelen?
 > **Antwoord:**
@@ -1245,14 +1245,14 @@ public class Trip : ObservableObject
 
 ---
 
-## 11. Hoe uit te leggen aan de Docent
+## 11. Hoe uit te leggen aan de docent
 
-### Start met MVVM Pattern
+### Start met MVVM pattern
 
 > [!example] Leg MVVM uit
 > "TripTracker gebruikt het MVVM pattern. Ik heb Models die erven van `ObservableObject` voor two-way data binding. ViewModels bevatten de UI logica en commands. Views zijn XAML pagina's zonder code-behind. Data binding verbindt View en ViewModel automatisch."
 
-### Toon ObservableObject Pattern
+### Toon ObservableObject pattern
 
 > [!example] Demonstreer een Model
 > ```csharp
@@ -1269,12 +1269,12 @@ public class Trip : ObservableObject
 >
 > "Elke property gebruikt `SetProperty()` om de UI te notifieren bij changes. Dit maakt two-way binding mogelijk: UI changes updaten het model en vice versa."
 
-### Uitleg Dependency Injection
+### Uitleg dependency injection
 
 > [!example] Toon MauiProgram.cs
 > "In `MauiProgram.cs` registreer ik alle services, pages en viewmodels voor Dependency Injection. Hoofdpagina's zijn Singleton (state behouden), detail pagina's zijn Transient (nieuwe instance per navigatie). Services zoals `NavigationService` zijn Transient omdat ze stateless zijn."
 
-### Demonstreer AppShell Navigatie
+### Demonstreer AppShell navigatie
 
 > [!example] Toon AppShell.xaml
 > ```xml
@@ -1301,7 +1301,7 @@ public class Trip : ObservableObject
 
 ---
 
-## 12. Checklist voor Examen
+## 12. Checklist voor examen
 
 - [ ] Kan ik uitleggen wat .NET MAUI is en waarom we het gebruiken?
 - [ ] Kan ik het MVVM pattern uitleggen (Model, View, ViewModel)?
@@ -1322,7 +1322,7 @@ public class Trip : ObservableObject
 
 ---
 
-## 13. Volgende Stappen
+## 13. Volgende stappen
 
 **Voor MVVM implementatie:**
 - [ ] ViewModels bouwen met Commands (zie 03-viewmodels-commands.md)

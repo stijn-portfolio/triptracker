@@ -10,7 +10,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 15: Year Filter Tabs
+# Fase 15: year filter tabs
 
 ## Overzicht
 
@@ -21,7 +21,7 @@ In deze fase hebben we **horizontale jaar-filter tabs** geïmplementeerd op Trip
 
 ---
 
-## Feature Preview
+## Feature preview
 
 ```
 My Trips                      [Map] [+]
@@ -41,9 +41,9 @@ My Trips                      [Map] [+]
 
 ---
 
-## Simpele Uitleg Eerst
+## Simpele uitleg eerst
 
-### Wat doet Year Filter?
+### Wat doet year filter?
 
 Filter-knoppen bovenaan de trips pagina:
 
@@ -56,7 +56,7 @@ Filter-knoppen bovenaan de trips pagina:
 └──────────────────────────────────────┘
 ```
 
-### De 3 Onderdelen
+### De 3 onderdelen
 
 ```
 1. YearFilterItem      →  Eén knop (jaar + is geselecteerd?)
@@ -89,7 +89,7 @@ TripsViewModel.YearFilters ← GEVONDEN!
 ObservableCollection met [All, 2025, 2024]
 ```
 
-### Hoe wordt YearFilters gevuld? (App Start)
+### Hoe wordt YearFilters gevuld? (App start)
 
 ```
 App start
@@ -108,7 +108,7 @@ UpdateAvailableYears()    ← HIER worden YearFilters gevuld!
     └── 3. SelectedYear = huidig jaar
 ```
 
-### Wat gebeurt bij Knop Klik?
+### Wat gebeurt bij knop klik?
 
 ```
 Gebruiker klikt [2024]
@@ -127,7 +127,7 @@ SelectedYear = 2024
                     [2025].IsSelected = false (grijs)
 ```
 
-### BindableLayout - Simpel Uitgelegd
+### BindableLayout - simpel uitgelegd
 
 ```xml
 <StackLayout BindableLayout.ItemsSource="{Binding YearFilters}">
@@ -148,7 +148,7 @@ YearFilters collectie:              StackLayout resultaat:
 
 ---
 
-## LINQ Basics
+## LINQ basics
 
 ### Wat is LINQ?
 
@@ -156,7 +156,7 @@ YearFilters collectie:              StackLayout resultaat:
 
 **In gewone taal:** "Een manier om data te filteren, sorteren en bewerken met simpele commando's"
 
-### Zonder LINQ vs Met LINQ
+### Zonder LINQ vs met LINQ
 
 ```csharp
 // ZONDER LINQ (veel code)
@@ -177,7 +177,7 @@ var jaren = Trips
     .ToList();
 ```
 
-### De Belangrijkste LINQ Methods
+### De belangrijkste LINQ methods
 
 | Method | Wat doet het | Voorbeeld |
 |--------|--------------|-----------|
@@ -188,7 +188,7 @@ var jaren = Trips
 | `OrderByDescending` | Sorteer aflopend | `[1, 2, 3]` → `[3, 2, 1]` |
 | `ToList` | Maak er een lijst van | Resultaat → `List<T>` |
 
-### Visueel Voorbeeld
+### Visueel voorbeeld
 
 ```
 Trips:
@@ -227,7 +227,7 @@ Trips:
 
 ---
 
-## MVVM Architectuur
+## MVVM architectuur
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -271,7 +271,7 @@ Trips:
 
 ---
 
-## YearFilterItem Model
+## YearFilterItem model
 
 ```csharp
 // Models/YearFilterItem.cs
@@ -298,9 +298,9 @@ public class YearFilterItem : ObservableObject
 
 ---
 
-## ViewModel Filter Logica
+## ViewModel filter logica
 
-### Jaar Lijst Genereren
+### Jaar lijst genereren
 
 ```csharp
 // TripsViewModel.cs
@@ -333,7 +333,7 @@ private void UpdateAvailableYears()
 }
 ```
 
-### Filter Toepassen
+### Filter toepassen
 
 ```csharp
 private void ApplyYearFilter()
@@ -408,16 +408,16 @@ private void ApplyYearFilter()
 
 ---
 
-## Performance Optimalisatie
+## Performance optimalisatie
 
-### Probleem: Frame Drops
+### Probleem: frame drops
 
 Bij wisselen van filter verscheen in Android logs:
 ```
 [Choreographer] Skipped 149 frames! The application may be doing too much work on its main thread.
 ```
 
-### Oorzaak: Nieuwe Collectie = Full UI Rebuild
+### Oorzaak: nieuwe collectie = full UI rebuild
 
 ```csharp
 // SLECHT: Nieuwe collectie aanmaken
@@ -426,7 +426,7 @@ FilteredTrips = new ObservableCollection<Trip>(filtered);
 
 Dit dwingt MAUI om de **hele CollectionView** opnieuw te renderen.
 
-### Oplossing: Clear + Add
+### Oplossing: clear + add
 
 ```csharp
 // GOED: Bestaande collectie hergebruiken
@@ -442,7 +442,7 @@ foreach (var trip in tripsToShow)
 - Geen nieuwe UI elementen aanmaken
 - Virtualisatie blijft behouden
 
-### Extra: Onnodige PropertyChanged Voorkomen
+### Extra: onnodige PropertyChanged voorkomen
 
 ```csharp
 // Check of waarde daadwerkelijk verandert
@@ -475,7 +475,7 @@ Zonder check → elke filter switch triggert **alle** button updates.
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -517,7 +517,7 @@ Zonder check → elke filter switch triggert **alle** button updates.
 
 ---
 
-### Vraag 2: LINQ Distinct en OrderBy
+### Vraag 2: LINQ distinct en OrderBy
 
 **Vraag:** Hoe haal je een gesorteerde lijst van unieke jaren uit een collectie trips?
 
@@ -538,7 +538,7 @@ var years = Trips
 
 ---
 
-### Vraag 3: Performance - Clear vs New Collection
+### Vraag 3: performance - clear vs new collection
 
 **Vraag:** Waarom is `collection.Clear() + Add()` sneller dan `collection = new ObservableCollection<T>()`?
 
@@ -564,7 +564,7 @@ Met `Clear + Add` kan MAUI:
 
 ---
 
-### Vraag 4: Nullable int in Filter
+### Vraag 4: nullable int in filter
 
 **Vraag:** Waarom is `SelectedYear` een `int?` (nullable) in plaats van `int`?
 
@@ -589,7 +589,7 @@ Dit is eleganter dan een magic number (bv. `SelectedYear = -1`).
 
 ---
 
-### Vraag 5: DataTrigger voor Button State
+### Vraag 5: DataTrigger voor button state
 
 **Vraag:** Hoe maak je een button paars wanneer `IsSelected == true`?
 
@@ -615,7 +615,7 @@ Dit is eleganter dan een magic number (bv. `SelectedYear = -1`).
 
 ---
 
-### Vraag 6: Computed Property DisplayText
+### Vraag 6: computed property DisplayText
 
 **Vraag:** Wat is het voordeel van `DisplayText => Year?.ToString() ?? "All"`?
 

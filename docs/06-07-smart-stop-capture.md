@@ -14,7 +14,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Smart Stop Capture - OpenAI Vision + GPS Integratie
+# Smart stop capture - OpenAI vision + GPS integratie
 
 ## Overzicht
 
@@ -37,9 +37,9 @@ Deze documentatie beschrijft de **Smart Stop Capture** functionaliteit van TripT
 
 ---
 
-## 1. Architectuur: Services Overzicht
+## 1. Architectuur: services overzicht
 
-### Service Dependencies
+### Service dependencies
 
 ```
 AddStopViewModel
@@ -49,7 +49,7 @@ AddStopViewModel
     └── IAnalyzeImageService → OpenAI Vision API
 ```
 
-### Flow Diagram
+### Flow diagram
 
 ```
 User taps Camera/Gallery
@@ -75,9 +75,9 @@ POST to API
 
 ---
 
-## 2. Photo Service - Camera & Gallery
+## 2. Photo service - camera & gallery
 
-### IPhotoService Interface
+### IPhotoService interface
 
 **Locatie:** `Services/IPhotoService.cs`
 
@@ -97,7 +97,7 @@ namespace TripTracker.App.Services
 }
 ```
 
-### PhotoService Implementation
+### PhotoService implementation
 
 **Locatie:** `Services/PhotoService.cs`
 
@@ -225,9 +225,9 @@ namespace TripTracker.App.Services
 
 ---
 
-## 3. Geolocation Service - GPS Locatie
+## 3. Geolocation service - GPS locatie
 
-### IGeolocationService Interface
+### IGeolocationService interface
 
 **Locatie:** `Services/IGeolocationService.cs`
 
@@ -243,7 +243,7 @@ namespace TripTracker.App.Services
 }
 ```
 
-### GeolocationService Implementation
+### GeolocationService implementation
 
 **Locatie:** `Services/GeolocationService.cs`
 
@@ -314,9 +314,9 @@ namespace TripTracker.App.Services
 
 ---
 
-## 4. Geocoding Service - Reverse Geocoding
+## 4. Geocoding service - reverse geocoding
 
-### IGeocodingService Interface
+### IGeocodingService interface
 
 **Locatie:** `Services/IGeocodingService.cs`
 
@@ -333,7 +333,7 @@ namespace TripTracker.App.Services
 }
 ```
 
-### GeocodingService Implementation
+### GeocodingService implementation
 
 **Locatie:** `Services/GeocodingService.cs`
 
@@ -507,9 +507,9 @@ namespace TripTracker.App.Services
 
 ---
 
-## 5. Analyze Image Service - OpenAI Vision API
+## 5. Analyze image service - OpenAI vision API
 
-### IAnalyzeImageService Interface
+### IAnalyzeImageService interface
 
 **Locatie:** `Services/IAnalyzeImageService.cs`
 
@@ -533,7 +533,7 @@ namespace TripTracker.App.Services
 }
 ```
 
-### AnalyzeImageService Implementation
+### AnalyzeImageService implementation
 
 **Locatie:** `Services/AnalyzeImageService.cs`
 
@@ -640,7 +640,7 @@ Voeg GEEN markdown of andere opmaak toe. Alleen JSON!";
 }
 ```
 
-### OpenAI Keys Configuration
+### OpenAI keys configuration
 
 **Locatie:** `Services/OpenAIKeys.cs`
 
@@ -689,9 +689,9 @@ namespace TripTracker.App.Services
 
 ---
 
-## 6. AddStopViewModel - Complete Flow
+## 6. AddStopViewModel - complete flow
 
-### Properties en Dependencies
+### Properties en dependencies
 
 **Locatie:** `ViewModels/AddStopViewModel.cs`
 
@@ -875,7 +875,7 @@ namespace TripTracker.App.ViewModels
 }
 ```
 
-### Photo Processing Flow
+### Photo processing flow
 
 ```csharp
 private async Task CapturePhoto()
@@ -929,7 +929,7 @@ private async Task ProcessPhoto(byte[] bytes)
 >
 > **Voordeel**: UX is niet blocking - gebruiker kan meteen AI analyse starten terwijl GPS bezig is.
 
-### GPS + Geocoding Flow (Fire-and-Forget)
+### GPS + geocoding flow (Fire-and-Forget)
 
 ```csharp
 private async Task GetLocationAndGeocode()
@@ -989,7 +989,7 @@ private async Task GetLocationAndGeocode()
 >
 > Voor property updates gebruik je `BeginInvokeOnMainThread()` - geen await nodig.
 
-### AI Analysis Flow
+### AI analysis flow
 
 ```csharp
 private async Task AnalyzePhoto()
@@ -1049,7 +1049,7 @@ private async Task AnalyzePhoto()
 >
 > Dit voorkomt dubbele requests en invalid states.
 
-### Save Flow - Lokale Foto Opslag
+### Save flow - lokale foto opslag
 
 ```csharp
 private async Task SaveStop()
@@ -1288,7 +1288,7 @@ private async Task Cancel()
 </ContentPage>
 ```
 
-### Progressive Disclosure Pattern
+### Progressive disclosure pattern
 
 **Principe:** Toon alleen wat de gebruiker NU nodig heeft. Meer opties verschijnen pas wanneer relevant.
 
@@ -1396,7 +1396,7 @@ private async Task Cancel()
 
 ---
 
-## 8. Android Permissions
+## 8. Android permissions
 
 **Locatie:** `Platforms/Android/AndroidManifest.xml`
 
@@ -1443,7 +1443,7 @@ private async Task Cancel()
 
 ---
 
-## 9. Service Registration in MauiProgram
+## 9. Service registration in MauiProgram
 
 **Locatie:** `MauiProgram.cs`
 
@@ -1487,9 +1487,9 @@ public static class MauiProgram
 
 ---
 
-## 10. Examenvragen & Antwoorden
+## 10. Examenvragen & antwoorden
 
-### Vraag 1: Waarom Fire-and-Forget voor GPS?
+### Vraag 1: waarom fire-and-Forget voor GPS?
 
 **Antwoord:**
 GPS locatie ophalen kan 5-10 seconden duren (vooral indoor). Met fire-and-forget:
@@ -1504,7 +1504,7 @@ GPS locatie ophalen kan 5-10 seconden duren (vooral indoor). Met fire-and-forget
 _ = GetLocationAndGeocode();
 ```
 
-### Vraag 2: Verschil tussen MainThread.BeginInvoke en InvokeOnMainThreadAsync?
+### Vraag 2: verschil tussen MainThread.BeginInvoke en InvokeOnMainThreadAsync?
 
 **Antwoord:**
 | Methode | Type | Gebruik |
@@ -1527,7 +1527,7 @@ var status = await MainThread.InvokeOnMainThreadAsync(async () =>
 });
 ```
 
-### Vraag 3: Waarom InvariantCulture bij double.ToString()?
+### Vraag 3: waarom InvariantCulture bij double.ToString()?
 
 **Antwoord:**
 Belgische locale gebruikt komma (`,`) als decimaalscheidingsteken: `51,2194`
@@ -1542,7 +1542,7 @@ var url = $"https://nominatim.openstreetmap.org/reverse?lat={latitude.ToString(S
 
 Zonder InvariantCulture zou het `51,2194` zijn → API error!
 
-### Vraag 4: Waarom markdown stripping bij OpenAI response?
+### Vraag 4: waarom markdown stripping bij OpenAI response?
 
 **Antwoord:**
 OpenAI voegt soms markdown code blocks toe aan JSON:
@@ -1566,7 +1566,7 @@ if (outputText.StartsWith("```"))
 
 Zonder deze cleanup zou `JsonSerializer.Deserialize()` falen.
 
-### Vraag 5: Waarom NotifyCanExecuteChanged() na property updates?
+### Vraag 5: waarom NotifyCanExecuteChanged() na property updates?
 
 **Antwoord:**
 Commands met `CanExecute` logica moeten gere-evaluated worden:
@@ -1583,7 +1583,7 @@ PhotoPreview = ImageSource.FromStream(() => new MemoryStream(bytes));
 1. `CanExecute` wordt opnieuw geëvalueerd
 2. Button enabled/disabled state wordt geupdate in UI
 
-### Vraag 6: Waarom Nominatim als fallback?
+### Vraag 6: waarom Nominatim als fallback?
 
 **Antwoord:**
 **MAUI Geocoding API** gebruikt platform-specifieke providers:
@@ -1606,7 +1606,7 @@ if (result != null) return result;
 return await TryNominatimGeocodingAsync(latitude, longitude);
 ```
 
-### Vraag 7: Waarom foto compressie?
+### Vraag 7: waarom foto compressie?
 
 **Antwoord:**
 **OpenAI Vision API** accepteert max 20MB, maar:
@@ -1627,7 +1627,7 @@ if (stream.Length > ImageMaxSizeBytes)
 }
 ```
 
-### Vraag 8: Verschil tussen ObservableObject en ObservableRecipient?
+### Vraag 8: verschil tussen ObservableObject en ObservableRecipient?
 
 **Antwoord:**
 | Base Class | Features |
@@ -1646,7 +1646,7 @@ public class AddStopViewModel : ObservableRecipient, IRecipient<TripSelectedMess
 }
 ```
 
-### Vraag 9: Waarom FileSystem.AppDataDirectory voor foto's?
+### Vraag 9: waarom FileSystem.AppDataDirectory voor foto's?
 
 **Antwoord:**
 **MAUI FileSystem API** heeft meerdere storage opties:
@@ -1667,7 +1667,7 @@ var photosDir = Path.Combine(FileSystem.AppDataDirectory, "Photos");
 // Android: /data/data/com.companyname.triptracker/files/Photos/
 ```
 
-### Vraag 10: Waarom GPT-4o ipv GPT-4 Vision?
+### Vraag 10: waarom gPT-4o ipv GPT-4 vision?
 
 **Antwoord:**
 **GPT-4o** (o = omni) voordelen:
@@ -1685,16 +1685,16 @@ Voor TripTracker (reisfoto's analyseren) is GPT-4o perfect: snel, goedkoop, en n
 
 ---
 
-## 11. Testing Checklist
+## 11. Testing checklist
 
-### Foto Capture
+### Foto capture
 - [ ] Camera werkt op Android (fysiek device)
 - [ ] Galerij werkt op Android
 - [ ] Foto wordt gecomprimeerd bij > 4MB
 - [ ] Foto preview verschijnt in UI
 - [ ] PhotoData property wordt correct gezet
 
-### GPS & Geocoding
+### GPS & geocoding
 - [ ] GPS permission wordt gevraagd (eerste keer)
 - [ ] GPS locatie wordt opgehaald (outdoor)
 - [ ] Lat/Lng worden correct getoond (6 decimalen)
@@ -1702,7 +1702,7 @@ Voor TripTracker (reisfoto's analyseren) is GPT-4o perfect: snel, goedkoop, en n
 - [ ] Adres en land worden correct getoond
 - [ ] Fire-and-forget: UI blijft responsive tijdens GPS
 
-### OpenAI Vision
+### OpenAI vision
 - [ ] AI analyse button verschijnt na foto
 - [ ] Loading overlay tijdens analyse
 - [ ] Titel wordt correct ingevuld
@@ -1744,7 +1744,7 @@ System.Diagnostics.Debug.WriteLine($"[GPS] Permission status: {status}");
 System.Diagnostics.Debug.WriteLine($"[GPS] Location: {location?.Latitude}");
 ```
 
-### OpenAI Vision API errors
+### OpenAI vision API errors
 
 **Symptoom:** `AnalyzePhotoAsync()` returnt `null`
 

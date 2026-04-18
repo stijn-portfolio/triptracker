@@ -11,13 +11,13 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 3: Services Layer - API & Navigation
+# Fase 3: services layer - API & navigation
 
 ## Overzicht
 
 De Services Layer implementeert het **Repository Pattern** en **Separation of Concerns** principe. Deze laag scheidt de business logic (ViewModels) van de data access logic (API calls) en navigatie logica.
 
-### Waarom een Services Layer?
+### Waarom een services layer?
 
 1. **Separation of Concerns**: ViewModels hoeven niet te weten HOE data wordt opgehaald
 2. **Testbaarheid**: Services kunnen gemakkelijk gemockt worden voor unit tests
@@ -30,7 +30,7 @@ De Services Layer implementeert het **Repository Pattern** en **Separation of Co
 
 ---
 
-## Architectuur Overzicht
+## Architectuur overzicht
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -77,7 +77,7 @@ De Services Layer implementeert het **Repository Pattern** en **Separation of Co
 └───────────┘ └───────────┘ └────────┘ └───────────┘
 ```
 
-### File Structuur
+### File structuur
 
 ```
 TripTracker.App/
@@ -116,7 +116,7 @@ TripTracker.App/
 
 ---
 
-## 1. Generieke API Service Interface
+## 1. Generieke API service interface
 
 ### IApiService&lt;T&gt;
 
@@ -149,7 +149,7 @@ namespace TripTracker.App.Services
 > - **DRY principe**: Geen duplicatie van interface definities
 > - **Consistentie**: Alle DataServices hebben dezelfde methode signaturen
 
-### Voordelen Generieke Interface
+### Voordelen generieke interface
 
 | Voordeel | Uitleg |
 |----------|--------|
@@ -160,7 +160,7 @@ namespace TripTracker.App.Services
 
 ---
 
-## 2. Abstract Base Class - ApiService&lt;T&gt;
+## 2. Abstract base class - ApiService&lt;T&gt;
 
 ### Implementatie
 
@@ -273,7 +273,7 @@ namespace TripTracker.App.Services
 }
 ```
 
-### Design Beslissingen
+### Design beslissingen
 
 > [!tip] Examenvraag: Wat betekent `static` en `abstract`?
 >
@@ -306,7 +306,7 @@ namespace TripTracker.App.Services
 > - `TripStopDataService` → `"tripstops"`
 > - Base class kan de endpoint gebruiken in alle CRUD methodes
 
-### HTTP Status Codes
+### HTTP status codes
 
 | Methode | Verwachte Status Code | Betekenis |
 |---------|----------------------|-----------|
@@ -329,7 +329,7 @@ namespace TripTracker.App.Services
 
 ## 3. Concrete DataServices
 
-### ITripDataService Interface
+### ITripDataService interface
 
 **Locatie**: `Services/ITripDataService.cs`
 
@@ -388,7 +388,7 @@ namespace TripTracker.App.Services
 > - **RESTful pattern**: Nested resources onder parent resource
 > - **API Controller**: `TripsController.GetTripStopsAsync()`
 
-### ITripStopDataService Interface
+### ITripStopDataService interface
 
 **Locatie**: `Services/ITripStopDataService.cs`
 
@@ -428,7 +428,7 @@ namespace TripTracker.App.Services
 > **DI Pattern**: Consistent met andere services (NavigationService, PhotoService, etc.)
 > **Loose Coupling**: ViewModels kennen alleen de interface, niet de concrete implementatie
 
-### API Endpoints Mapping
+### API endpoints mapping
 
 | DataService | EndPoint | API Controller | Base URL |
 |-------------|----------|---------------|----------|
@@ -471,9 +471,9 @@ await _tripStopDataService.DeleteAsync(10);
 
 ---
 
-## 4. Navigation Service
+## 4. Navigation service
 
-### INavigationService Interface
+### INavigationService interface
 
 **Locatie**: `Services/INavigationService.cs`
 
@@ -492,7 +492,7 @@ namespace TripTracker.App.Services
 }
 ```
 
-### NavigationService Implementatie
+### NavigationService implementatie
 
 **Locatie**: `Services/NavigationService.cs`
 
@@ -619,7 +619,7 @@ await _navigation.PushAsync(
 > | `GetRequiredService<T>()` | "Geef mij een T, volledig gemonteerd" |
 > | Registratie in MauiProgram | Catalogus: "Dit hebben we op voorraad" |
 
-### Navigation Stack
+### Navigation stack
 
 > [!warning] Navigation Stack Validatie
 > `NavigateBackAsync()` checkt of er pagina's in de stack zitten:
@@ -652,7 +652,7 @@ await _navigation.PushAsync(
 
 ---
 
-## 5. Dependency Injection Registratie
+## 5. Dependency injection registratie
 
 ### MauiProgram.cs
 
@@ -726,7 +726,7 @@ public static class MauiProgram
 }
 ```
 
-### Service Lifetimes
+### Service lifetimes
 
 | Lifetime | Betekenis | Gebruik voor | Voorbeeld |
 |----------|-----------|--------------|-----------|
@@ -900,7 +900,7 @@ namespace TripTracker.App.ViewModels
 }
 ```
 
-### Data Flow
+### Data flow
 
 ```
 User taps Trip in TripsPage
@@ -934,9 +934,9 @@ UI updates via data binding
 
 ---
 
-## 7. Ngrok voor Android Testing
+## 7. Ngrok voor Android testing
 
-### Probleem: Localhost werkt niet op Android
+### Probleem: localhost werkt niet op Android
 
 Android emulator en fysieke devices kunnen **niet** verbinden met `localhost` of `https://localhost:7162`.
 
@@ -976,7 +976,7 @@ protected static readonly string BASE_URL =
 
 ---
 
-## 8. Error Handling Best Practices
+## 8. Error handling best practices
 
 ### Try-Catch in ViewModels
 
@@ -1019,7 +1019,7 @@ private async Task ShowError(string title, string message)
 }
 ```
 
-### Custom Exception Types
+### Custom exception types
 
 Voor grotere apps:
 
@@ -1049,7 +1049,7 @@ if (!response.IsSuccessStatusCode)
 
 ## Examenvragen
 
-### Vraag 1: Services Layer Architectuur
+### Vraag 1: services layer architectuur
 
 **Vraag**: Leg uit waarom we een Services Layer gebruiken tussen ViewModels en de API. Wat zijn de voordelen?
 
@@ -1063,7 +1063,7 @@ if (!response.IsSuccessStatusCode)
 
 ---
 
-### Vraag 2: Generieke Interface vs Concrete Interface
+### Vraag 2: generieke interface vs concrete interface
 
 **Vraag**: Wat is het verschil tussen `IApiService<T>` (generiek) en aparte interfaces zoals `ITripService`, `ITripStopService`? Wat zijn de voordelen van de generieke aanpak?
 
@@ -1100,7 +1100,7 @@ public async Task<List<TripStop>> GetTripStopsAsync(int tripId) { ... }
 
 ---
 
-### Vraag 3: HttpClient Best Practices
+### Vraag 3: HttpClient best practices
 
 **Vraag**: Waarom gebruiken we een `static readonly HttpClient` in de ApiService base class? Wat zijn de voordelen en risico's?
 
@@ -1138,7 +1138,7 @@ public async Task<T> GetAsync(int id)
 
 ---
 
-### Vraag 4: Dependency Injection Lifetimes
+### Vraag 4: dependency injection lifetimes
 
 **Vraag**: Leg het verschil uit tussen `AddSingleton`, `AddTransient` en `AddScoped` in Dependency Injection. Wanneer gebruik je welke?
 
@@ -1169,7 +1169,7 @@ builder.Services.AddTransient<INavigationService, NavigationService>();
 
 ---
 
-### Vraag 5: NavigationService Pattern
+### Vraag 5: NavigationService pattern
 
 **Vraag**: Waarom gebruiken we een `INavigationService` in plaats van direct `Navigation.PushAsync()` in ViewModels? Wat zijn de voordelen voor MVVM?
 
@@ -1213,7 +1213,7 @@ private async Task NavigateToDetail()
 
 ---
 
-### Vraag 6: API Error Handling
+### Vraag 6: API error handling
 
 **Vraag**: Hoe handel je errors af in de Services Layer? Waar hoort error handling thuis: in de Service of in de ViewModel?
 
@@ -1283,7 +1283,7 @@ private async Task LoadTrip()
 5. **Dependency Injection**: Services, Pages en ViewModels geregistreerd in MauiProgram
 6. **Service Lifetimes**: Singleton voor app-wide, Transient voor per-request
 
-### File Structuur
+### File structuur
 
 ```
 TripTracker.App/
@@ -1302,7 +1302,7 @@ TripTracker.App/
 └── MauiProgram.cs                  (DI registratie)
 ```
 
-### Best Practices
+### Best practices
 
 1. Gebruik generieke interfaces voor herbruikbare code
 2. HttpClient hergebruiken via static field
@@ -1315,7 +1315,7 @@ TripTracker.App/
 
 ---
 
-## Volgende Fase
+## Volgende fase
 
 **Fase 4: ViewModels & Messaging**
 - MVVM Community Toolkit

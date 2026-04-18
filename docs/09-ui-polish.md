@@ -11,7 +11,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 9: UI Polish & Bug Fixes
+# Fase 9: UI polish & bug fixes
 
 ## Overzicht
 
@@ -22,7 +22,7 @@ Deze fase behandelt **UI debugging** en **polish** - het vinden en oplossen van 
 
 ---
 
-## 1. Button Command Niet Werkend
+## 1. Button command niet werkend
 
 ### Probleem
 
@@ -81,7 +81,7 @@ private async Task AddNewTrip()
 
 ---
 
-## 2. Property Binding Toont Niets
+## 2. Property binding toont niets
 
 ### Probleem
 
@@ -91,7 +91,7 @@ Latitude en Longitude waarden waren leeg tijdens het ophalen van GPS locatie.
 
 De properties waren 0.0 tijdens het ophalen, wat als lege string werd getoond.
 
-### Oplossing: Computed Display Property
+### Oplossing: computed display property
 
 ```csharp
 // AddStopViewModel.cs
@@ -126,7 +126,7 @@ public string LatitudeDisplay => Latitude != 0
 
 ---
 
-## 3. Editor Tekst Afgeknipt
+## 3. Editor tekst afgeknipt
 
 ### Probleem
 
@@ -163,7 +163,7 @@ AI-gegenereerde beschrijvingen pasten niet in de Editor - tekst was afgeknipt.
 
 ---
 
-## 4. Datum Format Problemen
+## 4. Datum format problemen
 
 ### Probleem
 
@@ -201,7 +201,7 @@ De letter `t` in "at" werd geinterpreteerd als AM/PM format code!
 
 ---
 
-## 5. Dubbele Titels
+## 5. Dubbele titels
 
 ### Probleem
 
@@ -241,7 +241,7 @@ Verwijder de body titel - de `Title` property van ContentPage is voldoende.
 
 ---
 
-## 6. Inconsistente Kleuren
+## 6. Inconsistente kleuren
 
 ### Probleem
 
@@ -271,7 +271,7 @@ De "Analyze Photo with AI" button was groen, terwijl alle andere buttons paars w
 
 ---
 
-## Architectuur: Debugging Workflow
+## Architectuur: debugging workflow
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -300,7 +300,7 @@ De "Analyze Photo with AI" button was groen, terwijl alle andere buttons paars w
 
 ---
 
-## Bestanden Gewijzigd
+## Bestanden gewijzigd
 
 | Bestand | Wijziging |
 |---------|-----------|
@@ -315,7 +315,7 @@ De "Analyze Photo with AI" button was groen, terwijl alle andere buttons paars w
 
 ## Examenvragen
 
-### Vraag 1: Computed Properties
+### Vraag 1: computed properties
 
 **Vraag:** Hoe maak je een property die "Fetching..." toont als de waarde nog 0 is, en anders de waarde zelf?
 
@@ -343,7 +343,7 @@ public string LatitudeDisplay => Latitude != 0
 
 ---
 
-### Vraag 2: StringFormat Escaping
+### Vraag 2: StringFormat escaping
 
 **Vraag:** Waarom toont `StringFormat='{0:dd MMMM yyyy at HH:mm}'` "ap" in plaats van "at"?
 
@@ -355,7 +355,7 @@ public string LatitudeDisplay => Latitude != 0
 
 ---
 
-### Vraag 3: Editor AutoSize
+### Vraag 3: editor AutoSize
 
 **Vraag:** Wat is het verschil tussen `AutoSize="Disabled"` en `AutoSize="TextChanges"`?
 
@@ -369,7 +369,7 @@ Gebruik `TextChanges` voor beschrijvingen of notities waar de lengte kan variere
 
 ---
 
-### Vraag 4: Command Debugging
+### Vraag 4: command debugging
 
 **Vraag:** Een button command werkt niet. Welke 4 dingen controleer je?
 

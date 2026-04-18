@@ -10,7 +10,7 @@ tags:
 created: 2025-12-20
 ---
 
-# TripTracker - Project Overzicht
+# TripTracker - project overzicht
 
 ## Wat is TripTracker?
 
@@ -79,13 +79,13 @@ TripTracker is een **.NET MAUI** reis-app waarmee gebruikers hun reizen kunnen b
 
 ---
 
-## Examen Voorbereiding
+## Examen voorbereiding
 
 > **[[STUDY-GUIDE]]** - Compact overzicht van alle concepten voor het examen (4-5 A4)
 
 ---
 
-## Documentatie per Fase
+## Documentatie per fase
 
 | Fase | Document | Onderwerp | Status |
 |------|----------|-----------|--------|
@@ -106,7 +106,7 @@ TripTracker is een **.NET MAUI** reis-app waarmee gebruikers hun reizen kunnen b
 
 ---
 
-## Cursus Referenties
+## Cursus referenties
 
 | TripTracker Concept | Cursus Les | SafariSnap Equivalent |
 |---------------------|------------|----------------------|
@@ -120,7 +120,7 @@ TripTracker is een **.NET MAUI** reis-app waarmee gebruikers hun reizen kunnen b
 
 ---
 
-## Belangrijke Patronen
+## Belangrijke patronen
 
 ### 1. MVVM met CommunityToolkit
 
@@ -169,7 +169,7 @@ Messenger.Register<ViewModel, RefreshDataMessage>(this, (r, m) => r.Receive(m));
 
 ---
 
-## Quick Start
+## Quick start
 
 ### API starten
 ```bash
@@ -194,7 +194,7 @@ dotnet build -t:Run -f net8.0-android
 
 ---
 
-## Examenvragen Overzicht
+## Examenvragen overzicht
 
 > [!tip] Veelgestelde vragen
 > 1. **Waarom MVVM?** - Separation of concerns, testbaarheid, code-behind leeg
@@ -205,7 +205,7 @@ dotnet build -t:Run -f net8.0-android
 
 ---
 
-## Project Locaties
+## Project locaties
 
 - **App code:** `C:\Dev\TM\AIDOTNET\TripTracker\TripTracker.App\`
 - **API code:** `C:\Dev\TM\AIDOTNET\TripTracker\TripTracker.API\`

@@ -17,7 +17,7 @@ In deze fase hebben we een aparte pagina gemaakt voor het toevoegen van trips. D
 
 ---
 
-## Waarom een Aparte Pagina?
+## Waarom een aparte pagina?
 
 | Prompt Dialoog | AddTripPage |
 |----------------|-------------|
@@ -27,7 +27,7 @@ In deze fase hebben we een aparte pagina gemaakt voor het toevoegen van trips. D
 
 ---
 
-## MVVM Architectuur
+## MVVM architectuur
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -66,7 +66,7 @@ In deze fase hebben we een aparte pagina gemaakt voor het toevoegen van trips. D
 
 ---
 
-## Generieke ApiService Hergebruik
+## Generieke ApiService hergebruik
 
 De `TripDataService` erft van de generieke `ApiService<Trip>`:
 
@@ -86,7 +86,7 @@ Dit volgt exact het cursuspatroon uit Les 3 (SafariSnap DataServices).
 
 ---
 
-## Save Button Validatie
+## Save button validatie
 
 De Save button is disabled tot de gebruiker een naam invult:
 
@@ -113,7 +113,7 @@ public string Name
 
 ---
 
-## Navigatie Flow
+## Navigatie flow
 
 ```
 TripsPage
@@ -146,7 +146,7 @@ TripsPage (refreshed)
 
 ---
 
-## Full XAML Voorbeelden
+## Full XAML voorbeelden
 
 ### AddTripPage.xaml
 
@@ -356,7 +356,7 @@ TripsPage (refreshed)
 
 ---
 
-### Verschil Add vs Edit
+### Verschil add vs edit
 
 | Aspect | AddTripPage | EditTripPage |
 |--------|-------------|--------------|
@@ -374,7 +374,7 @@ TripsPage (refreshed)
 
 ## Bestanden
 
-### Nieuw Gemaakt
+### Nieuw gemaakt
 
 | Bestand | Doel |
 |---------|------|
@@ -394,7 +394,7 @@ TripsPage (refreshed)
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -408,7 +408,7 @@ TripsPage (refreshed)
 
 ## Examenvragen
 
-### Vraag 1: CanSave Pattern
+### Vraag 1: CanSave pattern
 
 **Vraag:** Implementeer een Save button die alleen enabled is als de naam niet leeg is.
 
@@ -439,7 +439,7 @@ public string Name
 
 ---
 
-### Vraag 2: Generieke ApiService
+### Vraag 2: generieke ApiService
 
 **Vraag:** Hoe maak je een service voor Trips die de generieke ApiService hergebruikt?
 
@@ -485,7 +485,7 @@ public void Receive(RefreshDataMessage message)
 
 ---
 
-### Vraag 4: Photo Lokaal Opslaan
+### Vraag 4: photo lokaal opslaan
 
 **Vraag:** Hoe sla je een foto lokaal op in de app data folder?
 
@@ -512,7 +512,7 @@ private async Task<string> SavePhotoLocally()
 
 ---
 
-### Vraag 5: DI Registratie
+### Vraag 5: DI registratie
 
 **Vraag:** Hoe registreer je AddTripPage in dependency injection?
 

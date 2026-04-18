@@ -6,7 +6,7 @@ tags: [xaml, views, navigation, data-binding, mvvm]
 created: 2025-12-20
 ---
 
-# Fase 5: Views en Navigatie
+# Fase 5: views en navigatie
 
 > [!info] Overzicht
 > Deze fase implementeert alle XAML views met data binding en navigatie. Het is de presentatielaag van de app die de MVVM pattern voltooit. **Cruciale examenvereiste:** Code-behind bestanden blijven volledig LEEG!
@@ -27,7 +27,7 @@ created: 2025-12-20
 
 ---
 
-## Shell Navigatie
+## Shell navigatie
 
 > [!tip] Examenvraag
 > **Vraag:** Wat is het verschil tussen TabBar en FlyoutItem in Shell navigatie?
@@ -86,7 +86,7 @@ public partial class AppShell : Shell
 
 ---
 
-## Views Overzicht
+## Views overzicht
 
 **Projectstructuur (8 Views):**
 
@@ -150,14 +150,14 @@ EditStopPage  TripDetailPage  TripsPage
 
 ---
 
-## Complete Flow: TripsPage → TripDetailPage
+## Complete flow: TripsPage → TripDetailPage
 
 > [!tip] Examenvraag
 > **Vraag:** Beschrijf de volledige flow wanneer een gebruiker op een Trip tikt in de lijst.
 >
 > **Antwoord:** Zie onderstaand diagram - van View naar ViewModel naar Service naar API en terug.
 
-### Stap-voor-stap met Code Locaties
+### Stap-voor-stap met code locaties
 
 ```
 ╔═══════════════════════════════════════════════════════════════════════════════╗
@@ -349,7 +349,7 @@ EditStopPage  TripDetailPage  TripsPage
 ╚═══════════════════════════════════════════════════════════════════════════════╝
 ```
 
-### Samenvatting Tabel
+### Samenvatting tabel
 
 | Stap | Bestand | Regel | Wat gebeurt |
 |------|---------|-------|-------------|
@@ -365,7 +365,7 @@ EditStopPage  TripDetailPage  TripsPage
 | 9 | `TripsController.cs` | 56-57 | DB → DTO → JSON |
 | 10 | `TripDetailPage.xaml` | 51 | `{Binding TripStops}` → UI |
 
-### Visueel Overzicht
+### Visueel overzicht
 
 ```
 ┌────────────────┐     ┌─────────────────┐     ┌──────────────────┐
@@ -418,7 +418,7 @@ ObservableCollection<TripStop>
 
 ---
 
-## TripsPage - Lijst van Trips
+## TripsPage - lijst van trips
 
 > [!tip] Examenvraag
 > **Vraag:** Waarom gebruik je `RelativeSource AncestorType` in een CollectionView DataTemplate?
@@ -610,7 +610,7 @@ public partial class TripsPage : ContentPage
 
 ---
 
-## TripDetailPage - Trip met Stops
+## TripDetailPage - trip met stops
 
 ### TripDetailPage.xaml
 
@@ -756,7 +756,7 @@ public partial class TripDetailPage : ContentPage
 
 ---
 
-## AddStopPage - Stop Toevoegen
+## AddStopPage - stop toevoegen
 
 > [!tip] Examenvraag
 > **Vraag:** Hoe gebruik je een Value Converter in XAML?
@@ -952,7 +952,7 @@ public partial class AddStopPage : ContentPage
 
 ---
 
-## StopDetailPage - Stop Details
+## StopDetailPage - stop details
 
 ### StopDetailPage.xaml
 
@@ -1064,7 +1064,7 @@ public partial class StopDetailPage : ContentPage
 
 ---
 
-## Overige Pages (Kort Overzicht)
+## Overige pages (Kort overzicht)
 
 De volgende pages volgen dezelfde patronen als hierboven. Hier een kort overzicht:
 
@@ -1139,7 +1139,7 @@ public EditTripPage(IEditTripViewModel viewModel)
 
 ---
 
-## Value Converters
+## Value converters
 
 > [!info] Wat zijn Value Converters?
 > Value Converters transformeren data tussen ViewModel en View. Gebruik ze voor:
@@ -1246,7 +1246,7 @@ public interface IValueConverter
 
 ---
 
-## Code-Behind Pattern
+## Code-Behind pattern
 
 > [!warning] EXAMENVEREISTE: Code-Behind blijft LEEG!
 > Dit is een **absolute MUST** voor het examen. Alle views moeten het onderstaande pattern volgen.
@@ -1292,7 +1292,7 @@ public partial class ExamplePage : ContentPage
 
 ---
 
-## Dependency Injection Setup
+## Dependency injection setup
 
 > [!tip] Examenvraag
 > **Vraag:** Wat is het verschil tussen AddSingleton en AddTransient?
@@ -1428,7 +1428,7 @@ public static class MauiProgram
 
 ## Examenvragen
 
-### Vraag 1: Data Binding
+### Vraag 1: data binding
 
 **Vraag:** Gegeven deze ViewModel property:
 
@@ -1470,7 +1470,7 @@ Schrijf de XAML voor een CollectionView die:
 
 ---
 
-### Vraag 2: Value Converter
+### Vraag 2: value converter
 
 **Vraag:** Je hebt een boolean property `IsLoading` in de ViewModel. Je wilt een Button disablen tijdens loading. Schrijf:
 1. De converter class
@@ -1507,7 +1507,7 @@ Al geïmplementeerd, zie hierboven.
 
 ---
 
-### Vraag 3: Code-Behind
+### Vraag 3: code-Behind
 
 **Vraag:** Waarom is deze code-behind FOUT volgens MVVM?
 
@@ -1591,7 +1591,7 @@ public class TripsViewModel : ObservableRecipient, IRecipient<RefreshDataMessage
 
 ---
 
-### Vraag 4: Navigation
+### Vraag 4: navigation
 
 **Vraag:** Implementeer een NavigationService methode die navigeert naar TripDetailPage via Dependency Injection.
 
@@ -1653,7 +1653,7 @@ private async Task ViewTripAsync(Trip trip)
 
 ---
 
-### Vraag 5: Grid Layout
+### Vraag 5: grid layout
 
 **Vraag:** Maak een Grid layout met:
 - Rij 1: Auto height (header)
@@ -1690,7 +1690,7 @@ private async Task ViewTripAsync(Trip trip)
 
 ---
 
-### Vraag 6: String Formatting
+### Vraag 6: string formatting
 
 **Vraag:** Gegeven een DateTime property `StartDate` in de ViewModel, schrijf de binding die toont als "Start: 20 Dec 2024".
 

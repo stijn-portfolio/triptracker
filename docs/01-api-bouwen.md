@@ -11,7 +11,7 @@ tags:
 created: 2025-12-20
 ---
 
-# TripTracker API - Volledige Implementatie
+# TripTracker API - volledige implementatie
 
 ## Overzicht
 
@@ -30,7 +30,7 @@ Deze documentatie beschrijft de **TripTracker.API** die is gebouwd volgens de .N
 
 ---
 
-## 1. Database Structuur
+## 1. Database structuur
 
 ### Entities
 
@@ -40,7 +40,7 @@ De database bestaat uit **2 tabellen** met een **one-to-many** relatie:
 Trip (1) ──────< TripStop (Many)
 ```
 
-#### Trip Entity
+#### Trip entity
 
 **Locatie:** `Entities/Trip.cs`
 
@@ -83,7 +83,7 @@ namespace TripTracker.API.Entities
 > - `[MaxLength(100)]`: Maximale lengte van string in database
 > - `?` na type: Nullable property (mag NULL zijn)
 
-#### TripStop Entity
+#### TripStop entity
 
 **Locatie:** `Entities/TripStop.cs`
 
@@ -146,7 +146,7 @@ namespace TripTracker.API.Entities
 
 ---
 
-## 2. DTOs (Data Transfer Objects)
+## 2. DTOs (Data transfer objects)
 
 > [!warning] KRITIEK: Waarom DTOs?
 > **NOOIT entities direct returnen via API!**
@@ -289,7 +289,7 @@ namespace TripTracker.API.Models
 
 ---
 
-## 3. AutoMapper Profiles
+## 3. AutoMapper profiles
 
 AutoMapper **vermijdt handmatige mapping** tussen entities en DTOs.
 
@@ -365,7 +365,7 @@ Zowel Safari.API als TripTracker.API gebruiken **AutoMapper met Profiles**. Dit 
 
 ---
 
-## 4. Repository Pattern
+## 4. Repository pattern
 
 Het Repository Pattern **scheidt data access logica** van de rest van de applicatie.
 
@@ -375,7 +375,7 @@ Het Repository Pattern **scheidt data access logica** van de rest van de applica
 > - **Consistency**: Alle data access via dezelfde interface
 > - **Reusability**: Repository kan hergebruikt worden in meerdere controllers
 
-### Interface vs Implementation
+### Interface vs implementation
 
 **Belangrijk patroon:**
 - Interface definieert **SYNC** methods voor Add/Update/Delete
@@ -664,7 +664,7 @@ public class TripStopsController : ControllerBase
 
 ---
 
-## 6. DbContext & Database
+## 6. DbContext & database
 
 ### TripTrackerContext
 
@@ -792,7 +792,7 @@ namespace TripTracker.API.DbContexts
 
 ---
 
-## 7. Program.cs - Application Setup
+## 7. Program.cs - application setup
 
 **Locatie:** `Program.cs`
 
@@ -880,9 +880,9 @@ app.Run();
 
 ---
 
-## 8. API Endpoints Overzicht
+## 8. API endpoints overzicht
 
-### Trips Endpoints
+### Trips endpoints
 
 | Methode | Endpoint | Beschrijving | Request Body | Response |
 |---------|----------|--------------|--------------|----------|
@@ -892,7 +892,7 @@ app.Run();
 | PUT | `/api/trips/{id}` | Trip updaten | `TripForUpdateDto` | 204 No Content |
 | DELETE | `/api/trips/{id}` | Trip verwijderen | - | 204 No Content |
 
-### TripStops Endpoints
+### TripStops endpoints
 
 | Methode | Endpoint | Beschrijving | Request Body | Response |
 |---------|----------|--------------|--------------|----------|
@@ -904,24 +904,24 @@ app.Run();
 
 ---
 
-## 9. Hoe uit te leggen aan de Docent
+## 9. Hoe uit te leggen aan de docent
 
-### Architectuur Overview
+### Architectuur overview
 
 > [!example] Start met de big picture
 > "Ik heb een ASP.NET Core Web API gebouwd volgens het Repository Pattern. De API heeft 2 tabellen met een one-to-many relatie: Trip en TripStop. Ik gebruik Entity Framework Core voor data access, AutoMapper voor DTO conversies, en Dependency Injection voor alle services."
 
-### Database Schema Tonen
+### Database schema tonen
 
 > [!example] Leg de relatie uit (Entities, niet DTOs!)
 > "De database bestaat uit Trip en TripStop. Eén trip kan meerdere stops hebben (one-to-many). In de **Trip entity** heb ik een `ICollection<TripStop>` navigation property. In de **TripStop entity** heb ik een `TripId` foreign key en een `Trip` navigation property met `[ForeignKey("TripId")]` attribute. Let op: in de DTOs gebruik ik alleen `TripId`, geen `Trip` object - dat voorkomt circular references."
 
-### DTOs Pattern Uitleggen
+### DTOs pattern uitleggen
 
 > [!example] Waarom DTOs?
 > "Ik gebruik DTOs om entities niet direct te exposen. Dit voorkomt circular references en geeft me controle over wat ik naar de client stuur. Voor GET requests gebruik ik `TripDto`, voor POST gebruik ik `TripForCreationDto` (zonder Id), en voor PUT gebruik ik `TripForUpdateDto`."
 
-### Repository Pattern Tonen
+### Repository pattern tonen
 
 > [!example] Toon een repository method
 > ```csharp
@@ -935,7 +935,7 @@ app.Run();
 >
 > "Hier gebruik ik `Include()` voor eager loading, zodat ik de TripStops in één query ophaal. Dit voorkomt N+1 query problemen."
 
-### AutoMapper Demonstreren
+### AutoMapper demonstreren
 
 > [!example] Laat een mapping zien
 > ```csharp
@@ -945,7 +945,7 @@ app.Run();
 >
 > "AutoMapper converteert automatisch tussen entities en DTOs. Ik heb Profile classes aangemaakt met `CreateMap<Trip, TripDto>()` configuraties."
 
-### Dependency Injection Uitleggen
+### Dependency injection uitleggen
 
 > [!example] Toon constructor injection
 > ```csharp
@@ -960,7 +960,7 @@ app.Run();
 
 ---
 
-## 10. Examenvragen & Antwoorden
+## 10. Examenvragen & antwoorden
 
 > [!tip] Examenvraag 1: Wat is het verschil tussen Entity en DTO?
 > **Antwoord:**
@@ -1101,7 +1101,7 @@ app.Run();
 
 ---
 
-## 12. Checklist voor Examen
+## 12. Checklist voor examen
 
 - [ ] Kan ik uitleggen wat een DTO is en waarom we het gebruiken?
 - [ ] Kan ik het verschil tussen Entity en DTO uitleggen?
@@ -1122,7 +1122,7 @@ app.Run();
 
 ---
 
-## 13. Volgende Stappen
+## 13. Volgende stappen
 
 **Voor MAUI integratie:**
 - [ ] Ngrok opzetten om API te exposen

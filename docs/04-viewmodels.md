@@ -11,7 +11,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 4: ViewModels met Interfaces
+# Fase 4: ViewModels met interfaces
 
 ## Overzicht
 
@@ -29,7 +29,7 @@ Deze fase implementeert alle **ViewModels** volgens het **MVVM pattern** met de 
 
 ---
 
-## Architectuur: ObservableRecipient Pattern
+## Architectuur: ObservableRecipient pattern
 
 Alle ViewModels erven van `ObservableRecipient`, die combineert:
 1. `ObservableObject`: Property change notification (`INotifyPropertyChanged`)
@@ -131,9 +131,9 @@ public class TripsViewModel : ObservableRecipient, IRecipient<RefreshDataMessage
 
 ---
 
-## Messages Uitgelegd
+## Messages uitgelegd
 
-### Wat is een Message?
+### Wat is een message?
 
 Een message is een **container voor data** die van ViewModel A naar ViewModel B wordt gestuurd, zonder dat ze elkaar hoeven te kennen.
 
@@ -147,7 +147,7 @@ Een message is een **container voor data** die van ViewModel A naar ViewModel B 
 └─────────────────┘                                     └─────────────────┘
 ```
 
-### De Register-lijn uitgelegd
+### De register-lijn uitgelegd
 
 ```csharp
 Messenger.Register<AddStopViewModel, TripSelectedMessage>(this, (r, m) => r.Receive(m));
@@ -169,7 +169,7 @@ Messenger.Register<AddStopViewModel, TripSelectedMessage>(this, (r, m) => r.Rece
 > Als er een `TripSelectedMessage` binnenkomt,
 > roep dan mijn `Receive()` method aan met die message."
 
-### De reis van een Message
+### De reis van een message
 
 **Stap 1: STUREN** (in TripDetailViewModel)
 ```csharp
@@ -212,7 +212,7 @@ private async Task SaveStop()
 }
 ```
 
-### Wat zit er in een Message?
+### Wat zit er in een message?
 
 ```csharp
 // Messages/TripSelectedMessage.cs
@@ -234,7 +234,7 @@ public class TripSelectedMessage : ValueChangedMessage<Trip>
 | `StopEditMessage` | `TripStop` (object) | Stop om te bewerken |
 | `ShowStopsOnMapMessage` | `(List<TripStop>, string)` tuple | Stops tonen op kaart |
 
-### Message Class Implementaties
+### Message class implementaties
 
 Alle messages erven van `ValueChangedMessage<T>`:
 
@@ -293,7 +293,7 @@ Messenger.Register<AddStopViewModel, TripSelectedMessage>(this, (r, m) => r.Rece
 
 ---
 
-## ViewModel Anatomie - De 8 Blokken
+## ViewModel anatomie - de 8 blokken
 
 Een ViewModel bestaat uit **8 logische blokken**. Hier leggen we elk blok uit.
 
@@ -331,7 +331,7 @@ public class AddStopViewModel : ObservableRecipient, IRecipient<TripSelectedMess
 
 ---
 
-### 1️⃣ Class Declaration
+### 1️⃣ Class declaration
 
 ```csharp
 public class AddStopViewModel : ObservableRecipient, IRecipient<TripSelectedMessage>, IAddStopViewModel
@@ -371,7 +371,7 @@ public class TripDetailViewModel : ObservableRecipient,
 
 ---
 
-### 2️⃣ Private Fields (Services)
+### 2️⃣ Private fields (Services)
 
 ```csharp
 private readonly INavigationService _navigationService;
@@ -565,7 +565,7 @@ builder.Services.AddTransient<IApiService, ApiService>();
 
 ---
 
-### 6️⃣ Message Handlers
+### 6️⃣ Message handlers
 
 ```csharp
 public void Receive(TripSelectedMessage message)
@@ -626,7 +626,7 @@ public void Receive(RefreshDataMessage message)
 
 ---
 
-### 7️⃣ Command Binding
+### 7️⃣ Command binding
 
 ```csharp
 private void BindCommands()
@@ -687,7 +687,7 @@ public string Title
 
 ---
 
-### 8️⃣ Command Handlers
+### 8️⃣ Command handlers
 
 ```csharp
 private async Task Save()
@@ -760,7 +760,7 @@ finally
 
 ---
 
-### Samenvatting: De 8 Blokken
+### Samenvatting: de 8 blokken
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -810,7 +810,7 @@ finally
 
 ---
 
-## 1. TripsViewModel - Overzichtspagina
+## 1. TripsViewModel - overzichtspagina
 
 **Interface:** `ITripsViewModel.cs`
 
@@ -1125,7 +1125,7 @@ public class TripsViewModel : ObservableRecipient, IRecipient<RefreshDataMessage
 }
 ```
 
-### Key Concepts
+### Key concepts
 
 **1. ObservableCollection vs List**
 ```csharp
@@ -1166,7 +1166,7 @@ public void Receive(RefreshDataMessage message)
 
 ---
 
-## 2. TripDetailViewModel - Detail pagina
+## 2. TripDetailViewModel - detail pagina
 
 **Interface:** `ITripDetailViewModel.cs`
 
@@ -1388,7 +1388,7 @@ public class TripDetailViewModel : ObservableRecipient, IRecipient<TripSelectedM
 }
 ```
 
-### Key Concepts
+### Key concepts
 
 **1. Meerdere IRecipient interfaces**
 ```csharp
@@ -1432,7 +1432,7 @@ WeakReferenceMessenger.Default.Send(new ShowStopsOnMapMessage(TripStops.ToList()
 
 ---
 
-## 3. AddStopViewModel - Nieuwe stop toevoegen
+## 3. AddStopViewModel - nieuwe stop toevoegen
 
 **Interface:** `IAddStopViewModel.cs`
 
@@ -1856,7 +1856,7 @@ public class AddStopViewModel : ObservableRecipient, IRecipient<TripSelectedMess
 }
 ```
 
-### Key Concepts
+### Key concepts
 
 **1. 5 Services via Dependency Injection**
 ```csharp
@@ -2082,7 +2082,7 @@ if (analysis == null && string.IsNullOrEmpty(Title))
 
 ---
 
-## 4. StopDetailViewModel - Stop detail
+## 4. StopDetailViewModel - stop detail
 
 **Interface:** `IStopDetailViewModel.cs`
 
@@ -2245,7 +2245,7 @@ public class StopDetailViewModel : ObservableRecipient, IRecipient<StopSelectedM
 }
 ```
 
-### Key Concepts
+### Key concepts
 
 **1. RefreshDataMessage voor data refresh**
 ```csharp
@@ -2304,11 +2304,11 @@ De volgende ViewModels volgen **dezelfde patronen** als hierboven, maar zijn ged
 
 ---
 
-## 6. Message Flow Diagrams
+## 6. Message flow diagrams
 
 > **Zie ook:** [[#Messages Uitgelegd]] voor uitleg over messages en [[#Message Class Implementaties]] voor de code.
 
-### Flow Diagrams
+### Flow diagrams
 
 **Basis Flow: Trip Detail bekijken**
 ```
@@ -2426,11 +2426,11 @@ StopDetailViewModel ────────────┘         │
 
 ---
 
-## 6b. Fundamentele C# Concepten (Examenvragen!)
+## 6b. fundamentele c# concepten (Examenvragen!)
 
 Deze sectie legt de **basis C# concepten** uit die je moet begrijpen voor ViewModels.
 
-### Interface = Contract
+### Interface = contract
 
 Een interface is een **contract** - een belofte over wat een class kan doen.
 
@@ -2471,7 +2471,7 @@ public class TripDataService : ITripDataService
 
 ---
 
-### Dependency Injection = Constructor Parameters
+### Dependency injection = constructor parameters
 
 **DI betekent:** "Vraag wat je nodig hebt via de constructor, iemand anders regelt het."
 
@@ -2623,7 +2623,7 @@ msg.Value  // → mijnTrip (opgeslagen door parent class)
 
 ---
 
-## 7. Dependency Injection Registratie
+## 7. Dependency injection registratie
 
 **MauiProgram.cs** - ViewModels als services (VOLLEDIGE CODE)
 
@@ -2692,7 +2692,7 @@ public static class MauiProgram
 }
 ```
 
-### Overzicht: Alle Geregistreerde Pages & ViewModels
+### Overzicht: alle geregistreerde pages & ViewModels
 
 | Page | ViewModel | Lifetime | Reden |
 |------|-----------|----------|-------|
@@ -2705,7 +2705,7 @@ public static class MauiProgram
 | EditStopPage | EditStopViewModel | Transient | Schone state per edit |
 | MapPage | MapViewModel | Transient | Schone kaart per view |
 
-### Service Lifetimes
+### Service lifetimes
 
 | Lifetime | Beschrijving | Gebruik voor |
 |----------|-------------|-------------|
@@ -2736,11 +2736,11 @@ public static class MauiProgram
 
 ---
 
-## 8. AsyncRelayCommand Deep Dive
+## 8. AsyncRelayCommand deep dive
 
 **AsyncRelayCommand** = async versie van RelayCommand (CommunityToolkit.Mvvm)
 
-### Basic Usage
+### Basic usage
 
 ```csharp
 // Zonder parameter
@@ -2753,7 +2753,7 @@ private async Task SaveAsync()
 }
 ```
 
-### Met Parameter
+### Met parameter
 
 ```csharp
 // Met parameter (Trip)
@@ -2796,7 +2796,7 @@ public string Title
 }
 ```
 
-### Error Handling
+### Error handling
 
 ```csharp
 private async Task SaveAsync()
@@ -2853,7 +2853,7 @@ private async Task SaveAsync()
 
 ---
 
-### Vraag 2: SetProperty Pattern
+### Vraag 2: SetProperty pattern
 
 **Vraag:** Schrijf de correcte implementatie van een property `Title` met SetProperty.
 
@@ -2896,7 +2896,7 @@ Trips.Add(newTrip);  // UI blijft leeg!
 
 ---
 
-### Vraag 4: Message Registration
+### Vraag 4: message registration
 
 **Vraag:** Hoe registreer je een ViewModel voor een RefreshDataMessage?
 
@@ -2968,7 +2968,7 @@ public string Title
 
 ---
 
-### Vraag 7: Dependency Injection
+### Vraag 7: dependency injection
 
 **Vraag:** Wat is het verschil tussen Singleton en Transient service lifetime?
 
@@ -2990,7 +2990,7 @@ builder.Services.AddTransient<ITripDetailViewModel, TripDetailViewModel>();
 
 ---
 
-### Vraag 8: Computed Properties
+### Vraag 8: computed properties
 
 **Vraag:** Implementeer een computed property `HasPhoto` die true is als PhotoPreview niet null is. Zorg voor correcte PropertyChanged notifications.
 
@@ -3016,7 +3016,7 @@ public ImageSource? PhotoPreview
 
 ---
 
-### Vraag 9: Fire-and-Forget Pattern
+### Vraag 9: fire-and-Forget pattern
 
 **Vraag:** Wat betekent `_ = LoadTripsAsync();` en wanneer gebruik je dit?
 
@@ -3045,7 +3045,7 @@ public void Receive(RefreshDataMessage message)
 
 ---
 
-### Vraag 10: MainThread Updates
+### Vraag 10: MainThread updates
 
 **Vraag:** Waarom moet je MainThread.BeginInvokeOnMainThread() gebruiken voor UI updates vanuit async methods?
 
@@ -3072,7 +3072,7 @@ MainThread.BeginInvokeOnMainThread(() =>
 
 ---
 
-### Vraag 11: SafariSnap vs TripTracker - Waarom MainThread?
+### Vraag 11: SafariSnap vs TripTracker - waarom MainThread?
 
 **Vraag:** SafariSnap uit de cursus gebruikt geen `MainThread.BeginInvokeOnMainThread()`. Waarom heeft TripTracker het wel nodig?
 
@@ -3122,7 +3122,7 @@ TripTracker:       Main Thread → await API ──→ Background Thread
 
 ## Samenvatting
 
-### ViewModels Checklist
+### ViewModels checklist
 
 - ✅ Erven van `ObservableRecipient`
 - ✅ Implementeren interface (ITripsViewModel, etc.)
@@ -3136,7 +3136,7 @@ TripTracker:       Main Thread → await API ──→ Background Thread
 - ✅ `NotifyCanExecuteChanged()` na property wijzigingen
 - ✅ `MainThread.BeginInvokeOnMainThread()` voor UI updates
 
-### Common Patterns
+### Common patterns
 
 **1. Property met SetProperty**
 ```csharp

@@ -10,7 +10,7 @@ tags:
 created: 2025-12-20
 ---
 
-# Fase 12: UI Cleanup & .NET 8 Downgrade
+# Fase 12: UI cleanup & .NET 8 downgrade
 
 ## Overzicht
 
@@ -35,7 +35,7 @@ Deze fase behandelt **platform-specifieke bugfixes** en **UI polish**. Het belan
 
 ---
 
-## 1. Camera Crash Fix
+## 1. Camera crash fix
 
 ### Probleem
 
@@ -46,7 +46,7 @@ De app crashte wanneer een foto werd genomen met de camera op Android.
 - Geen error in debug output
 - Alleen bij camera, niet bij gallery
 
-### Diagnose: Android Activity Lifecycle
+### Diagnose: Android activity lifecycle
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -71,7 +71,7 @@ De app crashte wanneer een foto werd genomen met de camera op Android.
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Oplossing 1: .NET 8 Downgrade
+### Oplossing 1: .NET 8 downgrade
 
 ```xml
 <!-- TripTracker.App.csproj -->
@@ -93,7 +93,7 @@ De app crashte wanneer een foto werd genomen met de camera op Android.
 <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 ```
 
-### Oplossing 2: Retry Logica (in PhotoService)
+### Oplossing 2: retry logica (in PhotoService)
 
 De retry logica zit nu **in de PhotoService** zelf, niet meer in de ViewModel:
 
@@ -141,7 +141,7 @@ private async Task CapturePhoto()
 
 ---
 
-## 2. Geocoding Duplicatie Fix
+## 2. Geocoding duplicatie fix
 
 ### Probleem
 
@@ -153,7 +153,7 @@ Adressen toonden dezelfde waarde twee keer:
 
 `Geocoding.GetPlacemarksAsync()` retourneert soms dezelfde waarde voor `SubLocality` en `Locality`.
 
-### Oplossing: Duplicaat Check
+### Oplossing: duplicaat check
 
 ```csharp
 // AddStopViewModel.cs - GetLocationAndGeocode()
@@ -179,9 +179,9 @@ Country = placemark.CountryName;
 
 ---
 
-## 3. Dark Theme Fixes
+## 3. Dark theme fixes
 
-### TextColor Probleem
+### TextColor probleem
 
 Labels waren onzichtbaar op donkere achtergronden.
 
@@ -195,7 +195,7 @@ Labels waren onzichtbaar op donkere achtergronden.
        TextColor="{StaticResource Gray600}"/>
 ```
 
-### Editor Achtergrond Probleem
+### Editor achtergrond probleem
 
 Witte Editor achtergrond paste niet bij dark theme.
 
@@ -219,7 +219,7 @@ Witte Editor achtergrond paste niet bij dark theme.
 
 ---
 
-## Retry Pattern voor Platform APIs
+## Retry pattern voor platform APIs
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -247,7 +247,7 @@ Witte Editor achtergrond paste niet bij dark theme.
 
 ---
 
-## Bestanden Gewijzigd
+## Bestanden gewijzigd
 
 | Bestand | Wijziging |
 |---------|-----------|
@@ -258,7 +258,7 @@ Witte Editor achtergrond paste niet bij dark theme.
 
 ---
 
-## Cursus Compliance
+## Cursus compliance
 
 | Vereiste | Status |
 |----------|--------|
@@ -307,7 +307,7 @@ await MainThread.InvokeOnMainThreadAsync(async () =>
 
 ---
 
-### Vraag 3: Retry Pattern
+### Vraag 3: retry pattern
 
 **Vraag:** Hoe implementeer je retry logica voor onbetrouwbare platform APIs?
 
@@ -339,7 +339,7 @@ Dit pattern is toepasbaar op camera, GPS, network calls, en file I/O.
 
 ---
 
-### Vraag 4: Duplicaten Voorkomen in Strings
+### Vraag 4: duplicaten voorkomen in strings
 
 **Vraag:** Hoe voorkom je duplicaten bij het samenstellen van een adres string?
 
@@ -363,7 +363,7 @@ var result = string.Join(", ", parts);
 
 ---
 
-### Vraag 5: Frame vs Border
+### Vraag 5: frame vs border
 
 **Vraag:** Wat is het verschil tussen Frame en Border in MAUI?
 
@@ -386,7 +386,7 @@ var result = string.Join(", ", parts);
 
 ---
 
-### Vraag 6: TextColor en Theming
+### Vraag 6: TextColor en theming
 
 **Vraag:** Waarom moet je altijd een expliciete TextColor specificeren voor labels op een gekleurde achtergrond?
 
