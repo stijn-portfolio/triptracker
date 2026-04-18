@@ -14,7 +14,8 @@ namespace TripTracker.App.Services
         // ═══════════════════════════════════════════════════════════
 
         // Base URL voor de API (Ngrok voor Android, localhost voor Windows)
-        protected static readonly string BASE_URL = "https://mao-subtympanitic-pauletta.ngrok-free.dev/api";
+        // Gebruik ngrok voor Android: ngrok http 5206, dan URL hier plakken
+        protected static readonly string BASE_URL = "https://YOUR_NGROK_URL.ngrok-free.dev/api";
 
         // Statische HttpClient met timeout (hergebruik voor performance)
         protected static readonly HttpClient client = new HttpClient() { Timeout = TimeSpan.FromSeconds(60) };
